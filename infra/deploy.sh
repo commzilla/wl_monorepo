@@ -134,6 +134,19 @@ mkdir -p static
 sudo -u wl-api /home/wl-api/app/venv/bin/python manage.py migrate --noinput
 sudo -u wl-api /home/wl-api/app/venv/bin/python manage.py collectstatic --noinput -v 0
 
+# Create superuser with admin role
+sudo -u wl-api /home/wl-api/app/venv/bin/python manage.py shell -c "
+from django.contrib.auth import get_user_model
+U = get_user_model()
+if not U.objects.filter(is_superuser=True).exists():
+    u = U.objects.create_superuser(username='admin', email='$ADMIN_EMAIL', password='$ADMIN_PASS')
+    u.role = 'admin'
+    u.save()
+    print('Superuser created:', u.email)
+else:
+    print('Superuser already exists, skipping.')
+"
+
 # Build frontends
 cd /home/wl-crm/app/src && sudo -u wl-crm npm install --silent && sudo -u wl-crm npm run build
 mkdir -p /home/wl-crm/htdocs/$CRM_DOMAIN
