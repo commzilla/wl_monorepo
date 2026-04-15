@@ -12,6 +12,11 @@ import {
   ShoppingBag, Award, FileSearch, BadgePercent, MessageCircle,
   Bell, Shield, Network, Cog, Settings, Tag, Ticket, ArrowUpRight,
 } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ChallengesTab from '@/components/dashboard/ChallengesTab';
+import PayoutsTab from '@/components/dashboard/PayoutsTab';
+import OrdersTab from '@/components/dashboard/OrdersTab';
+import TradesTab from '@/components/dashboard/TradesTab';
 
 // ── Colour constants ──────────────────────────────────────────────────────────
 const COLOR_BAR_DEFAULT = '#c4b5fd';
@@ -258,7 +263,39 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* ── Row 3: Accounts Overview ───────────────────────────────────────── */}
+      {/* ── Row 3: Analytics tabs ─────────────────────────────────────────── */}
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <Tabs defaultValue="challenges">
+          <div className="px-5 pt-4 border-b border-border">
+            <TabsList className="h-9 bg-muted/60 p-0.5 rounded-xl">
+              <TabsTrigger value="challenges" className="rounded-lg px-4 h-8 text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary">
+                Challenges
+              </TabsTrigger>
+              <TabsTrigger value="payouts" className="rounded-lg px-4 h-8 text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary">
+                Payouts
+              </TabsTrigger>
+              {hasPermission('orders.view') && (
+                <TabsTrigger value="orders" className="rounded-lg px-4 h-8 text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary">
+                  Orders
+                </TabsTrigger>
+              )}
+              <TabsTrigger value="trades" className="rounded-lg px-4 h-8 text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary">
+                Trades
+              </TabsTrigger>
+            </TabsList>
+          </div>
+          <div className="p-5">
+            <TabsContent value="challenges" className="mt-0"><ChallengesTab /></TabsContent>
+            <TabsContent value="payouts" className="mt-0"><PayoutsTab /></TabsContent>
+            {hasPermission('orders.view') && (
+              <TabsContent value="orders" className="mt-0"><OrdersTab /></TabsContent>
+            )}
+            <TabsContent value="trades" className="mt-0"><TradesTab /></TabsContent>
+          </div>
+        </Tabs>
+      </div>
+
+      {/* ── Row 4: Accounts Overview ───────────────────────────────────────── */}
       <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
         <div className="flex items-center gap-3 mb-5">
           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
