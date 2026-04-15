@@ -54,11 +54,11 @@ const ChallengesTab: React.FC = () => {
             const failRate = parseFloat(step.fail_rate.replace('%', ''));
 
             return (
-              <div key={index} className="glass-card p-6 rounded-xl border border-border/50">
+              <div key={index} className="p-5 rounded-xl border border-border bg-muted/30">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,112,255,0.15))', border: '1px solid rgba(0,212,255,0.2)' }}>
-                      <span className="text-sm font-semibold" style={{ color: '#00d4ff' }}>
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 border border-primary/20">
+                      <span className="text-sm font-semibold text-primary">
                         {index + 1}
                       </span>
                     </div>
@@ -68,7 +68,7 @@ const ChallengesTab: React.FC = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-xs text-muted-foreground">Pass Rate</div>
-                    <div className="text-lg font-bold" style={{ color: '#00ff88', textShadow: '0 0 10px rgba(0,255,136,0.3)' }}>
+                    <div className="text-lg font-bold text-emerald-600">
                       {passRate.toFixed(1)}%
                     </div>
                   </div>
@@ -80,46 +80,46 @@ const ChallengesTab: React.FC = () => {
                     <span className="text-muted-foreground">{step.entered.toLocaleString()} entered</span>
                     <span className="text-muted-foreground">{step.in_progress.toLocaleString()} in progress</span>
                   </div>
-                  <div className="relative h-3 rounded-full overflow-hidden" style={{ background: 'rgba(148,163,184,0.08)' }}>
+                  <div className="relative h-2.5 rounded-full overflow-hidden bg-muted">
                     <div
-                      className="absolute top-0 left-0 h-full rounded-full transition-all duration-500"
-                      style={{ width: `${passRate}%`, background: 'linear-gradient(90deg, #00ff88, #10b981)', boxShadow: '0 0 10px rgba(0,255,136,0.3)' }}
+                      className="absolute top-0 left-0 h-full rounded-full transition-all duration-500 bg-emerald-500"
+                      style={{ width: `${passRate}%` }}
                     />
                     <div
-                      className="absolute top-0 right-0 h-full rounded-full transition-all duration-500"
-                      style={{ width: `${failRate}%`, background: 'linear-gradient(90deg, #ff3d8f, #e11d48)', boxShadow: '0 0 10px rgba(255,61,143,0.3)' }}
+                      className="absolute top-0 right-0 h-full rounded-full transition-all duration-500 bg-rose-500"
+                      style={{ width: `${failRate}%` }}
                     />
                   </div>
                 </div>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="text-center p-3 rounded-lg" style={{ background: 'rgba(0,255,136,0.05)', border: '1px solid rgba(0,255,136,0.15)' }}>
-                    <div className="text-2xl font-bold mb-1" style={{ color: '#00ff88' }}>
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="text-center p-3 rounded-lg bg-emerald-50 border border-emerald-100">
+                    <div className="text-2xl font-bold mb-1 text-emerald-600">
                       {step.passes.toLocaleString()}
                     </div>
                     <div className="text-xs text-muted-foreground uppercase tracking-wide">
                       Passed
                     </div>
-                    <div className="text-xs font-medium mt-1" style={{ color: '#00ff88' }}>
+                    <div className="text-xs font-medium mt-1 text-emerald-500">
                       {passRate.toFixed(1)}%
                     </div>
                   </div>
 
-                  <div className="text-center p-3 rounded-lg" style={{ background: 'rgba(255,61,143,0.05)', border: '1px solid rgba(255,61,143,0.15)' }}>
-                    <div className="text-2xl font-bold mb-1" style={{ color: '#ff3d8f' }}>
+                  <div className="text-center p-3 rounded-lg bg-rose-50 border border-rose-100">
+                    <div className="text-2xl font-bold mb-1 text-rose-600">
                       {step.fails.toLocaleString()}
                     </div>
                     <div className="text-xs text-muted-foreground uppercase tracking-wide">
                       Failed
                     </div>
-                    <div className="text-xs font-medium mt-1" style={{ color: '#ff3d8f' }}>
+                    <div className="text-xs font-medium mt-1 text-rose-500">
                       {step.fail_rate}
                     </div>
                   </div>
 
-                  <div className="text-center p-3 rounded-lg" style={{ background: 'rgba(0,212,255,0.05)', border: '1px solid rgba(0,212,255,0.15)' }}>
-                    <div className="text-2xl font-bold mb-1" style={{ color: '#00d4ff' }}>
+                  <div className="text-center p-3 rounded-lg bg-primary/5 border border-primary/10">
+                    <div className="text-2xl font-bold mb-1 text-primary">
                       {step.entered.toLocaleString()}
                     </div>
                     <div className="text-xs text-muted-foreground uppercase tracking-wide">
@@ -241,7 +241,7 @@ const ChallengesTab: React.FC = () => {
                 <Tooltip content={<FuturisticTooltip />} />
                 <Legend
                   formatter={(value: string, entry: any) => (
-                    <span style={{ color: 'rgba(148,163,184,0.8)', fontSize: '12px' }}>{value}</span>
+                    <span className="text-muted-foreground text-xs">{value}</span>
                   )}
                 />
               </PieChart>

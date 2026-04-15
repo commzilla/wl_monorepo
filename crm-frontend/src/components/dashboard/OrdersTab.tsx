@@ -182,7 +182,7 @@ const OrdersTab: React.FC = () => {
                 <Tooltip content={<FuturisticTooltip />} />
                 <Legend
                   formatter={(value: string) => (
-                    <span style={{ color: 'rgba(148,163,184,0.8)', fontSize: '12px' }}>{value}</span>
+                    <span className="text-muted-foreground text-xs">{value}</span>
                   )}
                 />
               </PieChart>
@@ -259,7 +259,7 @@ const OrdersTab: React.FC = () => {
                   <Tooltip content={<FuturisticTooltip />} />
                   <Legend
                     formatter={(value: string) => (
-                      <span style={{ color: 'rgba(148,163,184,0.8)', fontSize: '12px' }}>{value}</span>
+                      <span className="text-muted-foreground text-xs">{value}</span>
                     )}
                   />
                   <Bar dataKey="Last Month" fill="url(#neonPurple)" radius={[6, 6, 0, 0]} />
@@ -277,7 +277,7 @@ const OrdersTab: React.FC = () => {
                   <Tooltip content={<FuturisticTooltip />} />
                   <Legend
                     formatter={(value: string) => (
-                      <span style={{ color: 'rgba(148,163,184,0.8)', fontSize: '12px' }}>{value}</span>
+                      <span className="text-muted-foreground text-xs">{value}</span>
                     )}
                   />
                   <Bar dataKey="Last Month" fill="url(#neonPurple)" radius={[6, 6, 0, 0]} />

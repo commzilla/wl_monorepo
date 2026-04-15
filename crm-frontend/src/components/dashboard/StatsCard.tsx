@@ -47,9 +47,9 @@ const StatsCard = React.memo<StatsCardProps>(({ title, value, description, icon,
           <div className="flex items-center gap-2 pt-3 border-t border-border/40">
             <div className={cn(
               "flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium",
-              trend.positive 
-                ? "bg-green-500/10 text-green-400 border border-green-500/20" 
-                : "bg-red-500/10 text-red-400 border border-red-500/20"
+              trend.positive
+                ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                : "bg-rose-50 text-rose-600 border border-rose-200"
             )}>
               <span>{trend.positive ? '↗' : '↘'}</span>
               <span>{Math.abs(trend.value)}%</span>

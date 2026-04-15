@@ -171,23 +171,23 @@ const TradesTab: React.FC = () => {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="glass-card p-4 rounded-xl" style={{ border: '1px solid rgba(0,212,255,0.15)' }}>
+              <div className="flex flex-col justify-center space-y-3">
+                <div className="p-4 rounded-xl border border-primary/15 bg-primary/5">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Live Active</span>
-                    <span className="text-lg font-bold" style={{ color: '#00d4ff', textShadow: '0 0 10px rgba(0,212,255,0.3)' }}>{formatNumber(funnel.live_active)}</span>
+                    <span className="text-lg font-bold text-primary">{formatNumber(funnel.live_active)}</span>
                   </div>
                 </div>
-                <div className="glass-card p-4 rounded-xl" style={{ border: '1px solid rgba(255,61,143,0.15)' }}>
+                <div className="p-4 rounded-xl border border-rose-200 bg-rose-50">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Live Failed (Breached)</span>
-                    <span className="text-lg font-bold" style={{ color: '#ff3d8f', textShadow: '0 0 10px rgba(255,61,143,0.3)' }}>{formatNumber(funnel.live_failed)}</span>
+                    <span className="text-lg font-bold text-rose-600">{formatNumber(funnel.live_failed)}</span>
                   </div>
                 </div>
-                <div className="glass-card p-4 rounded-xl" style={{ border: '1px solid rgba(251,191,36,0.15)' }}>
+                <div className="p-4 rounded-xl border border-amber-200 bg-amber-50">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Live Fail Rate</span>
-                    <span className="text-lg font-bold" style={{ color: '#fbbf24', textShadow: '0 0 10px rgba(251,191,36,0.3)' }}>{liveFailRate}%</span>
+                    <span className="text-lg font-bold text-amber-600">{liveFailRate}%</span>
                   </div>
                 </div>
               </div>
@@ -265,7 +265,7 @@ const TradesTab: React.FC = () => {
                 <Tooltip content={<FuturisticTooltip />} />
                 <Legend
                   formatter={(value: string) => (
-                    <span style={{ color: 'rgba(148,163,184,0.8)', fontSize: '12px' }}>{value}</span>
+                    <span className="text-muted-foreground text-xs">{value}</span>
                   )}
                 />
               </PieChart>
@@ -333,7 +333,7 @@ const TradesTab: React.FC = () => {
                   <Tooltip content={<FuturisticTooltip />} />
                   <Legend
                     formatter={(value: string) => (
-                      <span style={{ color: 'rgba(148,163,184,0.8)', fontSize: '12px' }}>{value}</span>
+                      <span className="text-muted-foreground text-xs">{value}</span>
                     )}
                   />
                   <Bar dataKey="Last Month" fill="url(#neonPurple)" radius={[6, 6, 0, 0]} />
@@ -351,7 +351,7 @@ const TradesTab: React.FC = () => {
                   <Tooltip content={<FuturisticTooltip />} />
                   <Legend
                     formatter={(value: string) => (
-                      <span style={{ color: 'rgba(148,163,184,0.8)', fontSize: '12px' }}>{value}</span>
+                      <span className="text-muted-foreground text-xs">{value}</span>
                     )}
                   />
                   <Bar dataKey="Last Month" fill="url(#neonPurple)" radius={[6, 6, 0, 0]} />
@@ -410,7 +410,7 @@ const TradesTab: React.FC = () => {
                     <TableCell className="font-medium">{trade.order}</TableCell>
                     <TableCell>{trade.symbol}</TableCell>
                     <TableCell>{trade.volume.toFixed(2)}</TableCell>
-                    <TableCell className="text-right" style={{ color: '#00ff88' }}>
+                    <TableCell className="text-right text-emerald-600 font-medium">
                       {formatCurrency(trade.profit)}
                     </TableCell>
                   </TableRow>
@@ -443,7 +443,7 @@ const TradesTab: React.FC = () => {
                     <TableCell className="font-medium">{trade.order}</TableCell>
                     <TableCell>{trade.symbol}</TableCell>
                     <TableCell>{trade.volume.toFixed(2)}</TableCell>
-                    <TableCell className="text-right" style={{ color: '#ff3d8f' }}>
+                    <TableCell className="text-right text-rose-600 font-medium">
                       {formatCurrency(trade.profit)}
                     </TableCell>
                   </TableRow>
