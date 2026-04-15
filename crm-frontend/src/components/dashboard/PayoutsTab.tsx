@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -106,18 +105,18 @@ const PayoutsTab: React.FC = () => {
   if (loading && !analytics) {
     return (
       <div className="space-y-6">
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold">Payouts Analytics</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Payouts Analytics</p>
+          </div>
+          <div className="p-5">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[...Array(4)].map((_, i) => (
                 <div key={i} className="h-24 bg-muted rounded animate-pulse" />
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     );
   }
@@ -167,13 +166,13 @@ const PayoutsTab: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Date Filter */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+            <p className="text-sm font-semibold text-foreground flex items-center gap-2">
               <Filter className="h-5 w-5" />
               Date Filter
-            </CardTitle>
+            </p>
             {quickFilter !== 'all' && (
               <Button variant="ghost" size="sm" onClick={handleClearFilters} className="gap-1.5">
                 <RotateCcw className="h-3.5 w-3.5" />
@@ -181,8 +180,8 @@ const PayoutsTab: React.FC = () => {
               </Button>
             )}
           </div>
-        </CardHeader>
-        <CardContent>
+        </div>
+        <div className="p-5">
           <div className="flex flex-wrap gap-2 mb-4">
             {QUICK_FILTERS.map((f) => (
               <Badge
@@ -250,18 +249,15 @@ const PayoutsTab: React.FC = () => {
               </Button>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Main Payout Stats */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Payouts Overview
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Payouts Overview</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <StatsCard
               title="Total Payouts"
@@ -283,18 +279,15 @@ const PayoutsTab: React.FC = () => {
               value={formatPercentage(analytics.repeat_withdrawal_rate)}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Withdrawal Status Cards + Donut Chart */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Withdrawals by Status
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Withdrawals by Status</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <StatsCard
               title="Approved"
@@ -344,19 +337,16 @@ const PayoutsTab: React.FC = () => {
               </ResponsiveContainer>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Step Type Breakdown */}
       {analytics.step_type_breakdown && analytics.step_type_breakdown.length > 0 && (
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Payouts by Challenge Type
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Payouts by Challenge Type</p>
+          </div>
+          <div className="p-5">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -377,20 +367,17 @@ const PayoutsTab: React.FC = () => {
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
 
       {/* Account Size Breakdown */}
       {accountSizeData.length > 0 && (
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Payouts by Account Size
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="overflow-x-auto chart-container">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Payouts by Account Size</p>
+          </div>
+          <div className="overflow-x-auto chart-container p-5">
             <ResponsiveContainer width="100%" height={300} minWidth={400}>
               <BarChart data={accountSizeData} layout="vertical" margin={{ left: 20 }}>
                 {chartGradientDefs()}
@@ -401,19 +388,16 @@ const PayoutsTab: React.FC = () => {
                 <Bar dataKey="value" name="Total Value" fill={getGradientFill(0, true)} radius={[0, 6, 6, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
 
       {/* Payout Reach Rates */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Payout Reach Rates
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Payout Reach Rates</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <StatsCard
               title="1st Payout Rate"
@@ -448,21 +432,18 @@ const PayoutsTab: React.FC = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Monthly Comparison */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Monthly Comparison
-            {analytics.date_filter_applied && (
-              <span className="text-xs font-normal text-muted-foreground ml-2">(calendar months, unaffected by filter)</span>
-            )}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Monthly Comparison</p>
+          {analytics.date_filter_applied && (
+            <p className="text-xs text-muted-foreground mt-0.5">(calendar months, unaffected by filter)</p>
+          )}
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <StatsCard
               title="Current Month"
@@ -499,18 +480,15 @@ const PayoutsTab: React.FC = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Top Repeat Withdrawers */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Top Repeat Withdrawers
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Top Repeat Withdrawers</p>
+        </div>
+        <div className="p-5">
           <Table>
             <TableHeader>
               <TableRow>
@@ -533,19 +511,16 @@ const PayoutsTab: React.FC = () => {
               ))}
             </TableBody>
           </Table>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Payouts by Country */}
       {countriesData.length > 0 && (
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Payouts by Country (Top 10)
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="overflow-x-auto chart-container">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Payouts by Country (Top 10)</p>
+          </div>
+          <div className="overflow-x-auto chart-container p-5">
             <ResponsiveContainer width="100%" height={Math.max(300, countriesData.length * 40)} minWidth={400}>
               <BarChart data={countriesData} layout="vertical" margin={{ left: 20 }}>
                 {chartGradientDefs()}
@@ -556,8 +531,8 @@ const PayoutsTab: React.FC = () => {
                 <Bar dataKey="value" name="Total Value" fill={getGradientFill(3, true)} radius={[0, 6, 6, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
     </div>
   );

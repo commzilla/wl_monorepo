@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import StatsCard from '@/components/dashboard/StatsCard';
 import { useToast } from '@/hooks/use-toast';
 import { challengeAnalyticsService, type ChallengeAnalyticsData, type ChallengeStepStats } from '@/services/challengeAnalyticsService';
@@ -40,14 +39,11 @@ const ChallengesTab: React.FC = () => {
   }, [toast]);
 
   const renderStepStats = (stepStats: ChallengeStepStats[], title: string) => (
-    <Card className="chart-card">
-      <CardHeader className="pb-4">
-        <CardTitle className="text-lg font-semibold flex items-center gap-2">
-          <span className="chart-title-accent" />
-          {title}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+      <div className="px-5 py-4 border-b border-border">
+        <p className="text-sm font-semibold text-foreground">{title}</p>
+      </div>
+      <div className="p-5">
         <div className="space-y-6">
           {stepStats.map((step, index) => {
             const passRate = step.total > 0 ? ((step.passes / step.total) * 100) : 0;
@@ -134,8 +130,8 @@ const ChallengesTab: React.FC = () => {
             );
           })}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 
   if (isLoading) {
@@ -143,11 +139,9 @@ const ChallengesTab: React.FC = () => {
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Card key={i} className="animate-pulse">
-              <CardContent className="p-6">
-                <div className="h-16 bg-muted rounded"></div>
-              </CardContent>
-            </Card>
+            <div key={i} className="animate-pulse bg-card rounded-2xl border border-border shadow-sm p-6">
+              <div className="h-16 bg-muted rounded"></div>
+            </div>
           ))}
         </div>
       </div>
@@ -180,14 +174,11 @@ const ChallengesTab: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Overview Statistics */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Challenge Overview
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Challenge Overview</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <StatsCard
               title="Total Challenges"
@@ -206,19 +197,16 @@ const ChallengesTab: React.FC = () => {
               value={data.live_traders}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Charts: Phase Distribution + Account Statistics */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Challenge Phase Distribution
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="overflow-x-auto chart-container">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Challenge Phase Distribution</p>
+          </div>
+          <div className="overflow-x-auto chart-container p-5">
             <ResponsiveContainer width="100%" height={300} minWidth={300}>
               <PieChart>
                 {chartGradientDefs()}
@@ -246,17 +234,14 @@ const ChallengesTab: React.FC = () => {
                 />
               </PieChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Account Statistics
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="overflow-x-auto chart-container">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Account Statistics</p>
+          </div>
+          <div className="overflow-x-auto chart-container p-5">
             <ResponsiveContainer width="100%" height={300} minWidth={300}>
               <BarChart data={accountStatsData}>
                 {chartGradientDefs()}
@@ -271,19 +256,16 @@ const ChallengesTab: React.FC = () => {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       {/* Account Statistics Cards */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Account Statistics
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Account Statistics</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <StatsCard
               title="Passed Phase 1"
@@ -315,18 +297,15 @@ const ChallengesTab: React.FC = () => {
               value={`${data.max_dd_breached_pct.toFixed(1)}%`}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* User Metrics */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            User Metrics
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">User Metrics</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <StatsCard
               title="Total Users"
@@ -345,8 +324,8 @@ const ChallengesTab: React.FC = () => {
               value={data.avg_breach_time ? `${data.avg_breach_time} days` : 'N/A'}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Step Statistics */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

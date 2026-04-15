@@ -460,19 +460,9 @@
   }
 
   .chart-card {
-    @apply relative overflow-hidden bg-card;
+    @apply relative overflow-hidden bg-card shadow-sm;
     border: 1px solid hsl(var(--border));
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-  }
-
-  .chart-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.25), transparent);
+    border-radius: 1rem; /* rounded-2xl, matching Overview section cards */
   }
 
   .chart-card:hover {
@@ -481,7 +471,6 @@
   }
 
   .chart-title-accent {
-    @apply inline-block w-1.5 h-5 rounded-full mr-2 flex-shrink-0;
-    background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--primary) / 0.55));
+    display: none;
   }
 }

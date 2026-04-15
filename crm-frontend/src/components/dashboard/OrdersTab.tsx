@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import StatsCard from '@/components/dashboard/StatsCard';
 import { dashboardService } from '@/services/dashboardService';
@@ -26,18 +25,18 @@ const OrdersTab: React.FC = () => {
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold">Orders Analytics</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Orders Analytics</p>
+          </div>
+          <div className="p-5">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {Array.from({ length: 4 }).map((_, i) => (
                 <Skeleton key={i} className="h-24 w-full" />
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     );
   }
@@ -96,14 +95,11 @@ const OrdersTab: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Core Metrics */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Core Metrics
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Core Metrics</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <StatsCard
               title="Total Orders"
@@ -122,19 +118,16 @@ const OrdersTab: React.FC = () => {
               value={orderAnalytics.affiliate_orders}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Revenue Composition (Bar) & Payment Status (Pie) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Revenue Composition
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="overflow-x-auto chart-container">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Revenue Composition</p>
+          </div>
+          <div className="overflow-x-auto chart-container p-5">
             <ResponsiveContainer width="100%" height={300} minWidth={300}>
               <BarChart data={revenueCompositionData}>
                 {chartGradientDefs()}
@@ -149,17 +142,14 @@ const OrdersTab: React.FC = () => {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Payment Status
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="overflow-x-auto chart-container">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Payment Status</p>
+          </div>
+          <div className="overflow-x-auto chart-container p-5">
             <ResponsiveContainer width="100%" height={300} minWidth={300}>
               <PieChart>
                 {chartGradientDefs()}
@@ -187,19 +177,16 @@ const OrdersTab: React.FC = () => {
                 />
               </PieChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       {/* Revenue & Discounts Cards */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Revenue & Discounts
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Revenue & Discounts</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <StatsCard
               title="Total Discounts"
@@ -218,18 +205,15 @@ const OrdersTab: React.FC = () => {
               value={formatCurrency(orderAnalytics.refunded_amount)}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Monthly Comparison */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Monthly Comparison
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Monthly Comparison</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <StatsCard
               title="Last Month Orders"
@@ -286,20 +270,17 @@ const OrdersTab: React.FC = () => {
               </ResponsiveContainer>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Customer Analytics */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Customers */}
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Top Customers
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Top Customers</p>
+          </div>
+          <div className="p-5">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -322,18 +303,15 @@ const OrdersTab: React.FC = () => {
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Repeating Customers */}
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Repeating Customers
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Repeating Customers</p>
+          </div>
+          <div className="p-5">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -356,19 +334,16 @@ const OrdersTab: React.FC = () => {
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       {/* Orders by Country */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Top 10 Countries by Revenue
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="overflow-x-auto chart-container">
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Top 10 Countries by Revenue</p>
+        </div>
+        <div className="overflow-x-auto chart-container p-5">
           <ResponsiveContainer width="100%" height={Math.max(300, countriesData.length * 40)} minWidth={400}>
             <BarChart data={countriesData} layout="vertical" margin={{ left: 30 }}>
               {chartGradientDefs()}
@@ -379,8 +354,8 @@ const OrdersTab: React.FC = () => {
               <Bar dataKey="revenue" name="Revenue" fill={getGradientFill(0, true)} radius={[0, 6, 6, 0]} />
             </BarChart>
           </ResponsiveContainer>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

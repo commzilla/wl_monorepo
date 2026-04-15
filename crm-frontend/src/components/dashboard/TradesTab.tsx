@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import StatsCard from '@/components/dashboard/StatsCard';
 import { dashboardService } from '@/services/dashboardService';
@@ -34,18 +33,18 @@ const TradesTab: React.FC = () => {
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold">Live Trading Analytics</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Live Trading Analytics</p>
+          </div>
+          <div className="p-5">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Skeleton key={i} className="h-24 w-full" />
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     );
   }
@@ -120,14 +119,11 @@ const TradesTab: React.FC = () => {
     <div className="space-y-6">
       {/* Challenge Funnel */}
       {funnel && (
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Challenge Funnel
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Challenge Funnel</p>
+          </div>
+          <div className="p-5">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
               <StatsCard
                 title="Total Enrollments"
@@ -192,22 +188,17 @@ const TradesTab: React.FC = () => {
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
 
       {/* Core Metrics (Live Accounts Only) */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Live Account Metrics
-            <span className="text-xs font-normal text-muted-foreground ml-2">
-              ({formatNumber(tradeAnalytics.total_live_accounts)} live accounts)
-            </span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Live Account Metrics</p>
+          <p className="text-xs text-muted-foreground mt-0.5">({formatNumber(tradeAnalytics.total_live_accounts)} live accounts)</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <StatsCard
               title="Total Trades"
@@ -230,19 +221,16 @@ const TradesTab: React.FC = () => {
               value={formatCurrency(tradeAnalytics.total_storage)}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Direction Breakdown (Pie) & Top Symbols (Bar) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Trade Directions
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="overflow-x-auto chart-container">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Trade Directions</p>
+          </div>
+          <div className="overflow-x-auto chart-container p-5">
             <ResponsiveContainer width="100%" height={300} minWidth={300}>
               <PieChart>
                 {chartGradientDefs()}
@@ -270,17 +258,14 @@ const TradesTab: React.FC = () => {
                 />
               </PieChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Top Symbols by Trade Count
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="overflow-x-auto chart-container">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Top Symbols by Trade Count</p>
+          </div>
+          <div className="overflow-x-auto chart-container p-5">
             <ResponsiveContainer width="100%" height={300} minWidth={300}>
               <BarChart data={symbolsData}>
                 {chartGradientDefs()}
@@ -291,19 +276,16 @@ const TradesTab: React.FC = () => {
                 <Bar dataKey="trades" name="Trades" fill="url(#neonCyan)" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       {/* Monthly Comparison Charts */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Monthly Comparison
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Monthly Comparison</p>
+        </div>
+        <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <StatsCard
               title="Last Month Trades"
@@ -360,18 +342,15 @@ const TradesTab: React.FC = () => {
               </ResponsiveContainer>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Top Accounts (Horizontal Bar) */}
-      <Card className="chart-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-lg font-semibold flex items-center">
-            <span className="chart-title-accent" />
-            Top Live Accounts by Profit
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="overflow-x-auto chart-container">
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm font-semibold text-foreground">Top Live Accounts by Profit</p>
+        </div>
+        <div className="overflow-x-auto chart-container p-5">
           <ResponsiveContainer width="100%" height={Math.max(300, topAccountsData.length * 40)} minWidth={400}>
             <BarChart data={topAccountsData} layout="vertical" margin={{ left: 20 }}>
               {chartGradientDefs()}
@@ -382,19 +361,16 @@ const TradesTab: React.FC = () => {
               <Bar dataKey="profit" name="Profit" fill={getGradientFill(2, true)} radius={[0, 6, 6, 0]} />
             </BarChart>
           </ResponsiveContainer>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Best & Worst Trades */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Best Trades
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Best Trades</p>
+          </div>
+          <div className="p-5">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -417,17 +393,14 @@ const TradesTab: React.FC = () => {
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card className="chart-card">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold flex items-center">
-              <span className="chart-title-accent" />
-              Worst Trades
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm font-semibold text-foreground">Worst Trades</p>
+          </div>
+          <div className="p-5">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -450,8 +423,8 @@ const TradesTab: React.FC = () => {
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
