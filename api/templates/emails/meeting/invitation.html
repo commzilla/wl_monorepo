@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WeFund | Meeting Invitation</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: radial-gradient(circle at top left, #183442 30%, transparent 70%),
+                        radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+            border-radius: 20px;
+        }
+        .logo { text-align: center; }
+        .logo img {
+            height: 120px;
+            width: auto;
+            margin-bottom: 30px;
+        }
+        h1, h2 { text-align: center; }
+        .main-content {
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .highlight {
+            background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+            border-radius: 10px;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.15em;
+        }
+        .details-card {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 20px 0;
+        }
+        .details-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .details-card td {
+            padding: 6px 0;
+            font-size: 14px;
+        }
+        .details-card td:first-child {
+            color: #666;
+            width: 100px;
+            font-weight: 600;
+        }
+        a.button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        a.cancel-link {
+            color: #999;
+            font-size: 12px;
+            text-decoration: underline;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #bbb;
+            font-size: 13px;
+        }
+        .socials a { margin: 0 5px; }
+        .socials img {
+            height: 32px;
+            width: 32px;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 10px; }
+            .main-content { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <div class="logo">
+            <img src="https://framerusercontent.com/images/TLmG1D7JDrVZ3B3rGEJealXM4s.png" alt="WeFund Logo" />
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1><strong>Hi {{ guest_name|default:"there" }},</strong></h1>
+            <p style="text-align:center">
+                You've been invited to a meeting with <strong>{{ host_name }}</strong>.
+            </p>
+
+            <div class="highlight">Meeting Details</div>
+
+            <div class="details-card">
+                <table>
+                    <tr>
+                        <td>Host</td>
+                        <td><strong>{{ host_name }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td><strong>{{ date }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Time</td>
+                        <td><strong>{{ time }} &ndash; {{ end_time }}</strong> ({{ timezone }})</td>
+                    </tr>
+                    <tr>
+                        <td>Duration</td>
+                        <td><strong>{{ duration }} minutes</strong></td>
+                    </tr>
+                    {% if notes %}
+                    <tr>
+                        <td>Notes</td>
+                        <td>{{ notes }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+
+            <div style="text-align:center; margin:25px 0;">
+                <a href="{{ room_url }}" class="button" target="_blank">Join Meeting</a>
+            </div>
+
+            <p style="text-align:center; font-size:13px; color:#555;">
+                Can't make it? <a href="{{ cancel_url }}" class="cancel-link">Cancel this meeting</a>
+            </p>
+
+            <p style="text-align:center; font-weight:bold; margin-top:20px;">
+                &mdash; The WeFund Team
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="socials" style="margin-bottom:10px;">
+                <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+                </a>
+                <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+                </a>
+                <a href="https://x.com/wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+                </a>
+            </div>
+            &copy; 2026 WeFund. All rights reserved.
+        </div>
+
+    </div>
+</body>
+</html>

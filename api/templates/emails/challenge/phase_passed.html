@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WeFund - Challenge Update</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: radial-gradient(circle at top left, #183442 30%, transparent 70%),
+                        radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+            border-radius: 20px;
+        }
+        .logo {
+            text-align: center;
+        }
+        .logo img {
+            max-width: 300px;
+            width: 60%;
+            height: auto;
+            display: inline-block;
+        }
+        .main-content {
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        h1, h2 {
+            text-align: center;
+            margin: 0 0 12px 0;
+        }
+        .highlight {
+            color: #218be0;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        .info-block {
+            margin: 18px 0;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background: #eee;
+            width: 130px;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        a.faq-link {
+            color: #2E8AE0;
+            text-decoration: none;
+        }
+        a.button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #bbb;
+            font-size: 13px;
+        }
+        .socials a {
+            margin: 0 5px;
+        }
+        .socials img {
+            height: 32px;
+            width: 32px;
+            vertical-align: middle;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 10px; }
+            .main-content { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="logo">
+            <img src="https://framerusercontent.com/images/YQ3hotbZLJJyETtNwdFTeG3QhA.png" alt="WeFund Logo" />
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="main-content">
+            <h1><strong>Hi {{ full_name }},</strong></h1>
+
+            <div class="highlight">Congratulations on reaching the {{ phase_name }} phase!</div>
+
+            <div class="info-block">
+                Following a comprehensive account review, you have met the eligibility criteria to advance to the <strong>{{ phase_name }}</strong>.
+            </div>
+
+            <div class="info-block">
+                Please complete the <strong>KYC</strong> and contract processes. You will receive an email from our KYC partner, <strong>Rise</strong>, with instructions. This platform is also used for withdrawals and payouts. Please ensure you use the same email as your WeFund account.
+            </div>
+
+            <div class="info-block">
+                Once KYC is approved, accept the invitation from <strong>"WeFund Markets Ltd"</strong> in the <strong>"Action Items"</strong> section of the Rise Dashboard. Completion of these steps will lead to receiving your new login details.
+            </div>
+
+            <h2>Account Summary</h2>
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <td>{{ username }}</td>
+                </tr>
+                <tr>
+                    <th>Account Size</th>
+                    <td>{{ account_size }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ status }}</td>
+                </tr>
+            </table>
+
+            <div>
+                <a href="https://support.we-fund.com" class="button" target="_blank">Challenge Rules</a>
+            </div>
+
+            <div class="info-block">
+                For additional information, please visit our 
+                <a href="https://help.we-fund.com" class="faq-link" target="_blank">Frequently Asked Questions (FAQs)</a> section.
+            </div>
+
+            <div class="info-block">
+                If you have any questions or need assistance, please reach out via live chat 
+                <a href="https://support.we-fund.com" class="faq-link" target="_blank">here</a>.
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <div class="socials" style="margin-bottom:10px;">
+                <a href="https://www.facebook.com/profile.php?...id=61570505740670" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+                </a>
+                <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+                </a>
+                <a href="https://x.com/wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+                </a>
+            </div>
+            &copy; {{ now.year }} WeFund. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

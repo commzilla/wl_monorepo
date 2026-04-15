@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeFund - Payout Limit Reached</title>
+  <style>
+    @keyframes wfBorderGlow {
+      0%   { box-shadow: 0 0 0 rgba(37,99,235,0.15); }
+      50%  { box-shadow: 0 0 26px rgba(37,99,235,0.65); }
+      100% { box-shadow: 0 0 0 rgba(37,99,235,0.15); }
+    }
+
+    @keyframes wfBannerSweep {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes wfDividerPulse {
+      0%   { opacity: 0.25; }
+      50%  { opacity: 0.85; }
+      100% { opacity: 0.25; }
+    }
+
+    .wf-outer {
+      animation: wfBorderGlow 7s ease-in-out infinite;
+    }
+
+    .wf-banner {
+      background-size: 210% 100% !important;
+      animation: wfBannerSweep 14s linear infinite;
+    }
+
+    .wf-divider {
+      animation: wfDividerPulse 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body style="margin:0; padding:0; -webkit-text-size-adjust:100%; background-color:#020617;">
+
+  <!-- FULL BACKGROUND / FRAME -->
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+         style="background-color:#020617;
+                background-image:
+                  radial-gradient(circle at 0% 0%, rgba(37,99,235,0.30) 0, transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(37,99,235,0.22) 0, transparent 60%);
+                background-repeat:no-repeat;">
+    <tr>
+      <td style="padding:0;">
+
+        <!-- LOGO -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto;">
+          <tr>
+            <td style="text-align:center; padding:40px 20px 20px;">
+              <img src="https://framerusercontent.com/images/TLmG1D7JDrVZ3B3rGEJealXM4s.png"
+                   alt="WeFund Logo"
+                   width="220"
+                   style="display:block; margin:0 auto; max-width:220px; height:auto; border:0;" />
+            </td>
+          </tr>
+        </table>
+
+        <!-- MAIN WRAPPER -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto; padding:0 16px 48px;">
+          <tr>
+            <td>
+
+              <!-- OUTER GLOW BORDER -->
+              <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                     class="wf-outer"
+                     style="background:linear-gradient(135deg, #1d4ed8 0%, #2563eb 40%, #38bdf8 100%);
+                            border-radius:26px; padding:2px;">
+                <tr>
+                  <td>
+
+                    <!-- INNER CARD -->
+                    <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                           style="background:#ffffff; border-radius:24px; overflow:hidden;">
+                      <tr>
+                        <td style="padding:0;">
+
+                          <!-- TOP BANNER -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 class="wf-banner"
+                                 style="background:linear-gradient(120deg, #0b1120 0%, #1d4ed8 40%, #0ea5e9 80%);
+                                        border-radius:24px 24px 0 0;">
+                            <tr>
+                              <td style="padding:20px 24px 18px;">
+
+                                <!-- STATUS ROW -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                  <tr>
+                                    <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+                                               color:#93c5fd; text-align:left;">
+                                      Account Status &middot; <span style="color:#fbbf24;">Closed</span>
+                                    </td>
+                                    <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+                                               color:#bfdbfe; text-align:right;">
+                                      Ref &middot; WF-LIMIT
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- MAIN TITLE -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="margin-top:16px;">
+                                  <tr>
+                                    <td style="text-align:center;">
+                                      <p style="margin:0 0 8px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+                                                color:#bae6fd;">
+                                        Hi {{ trader_name }}
+                                      </p>
+                                      <h1 style="margin:0;
+                                                 font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                 font-size:24px; font-weight:750; color:#eff6ff; line-height:1.35;">
+                                        Payout Limit Reached
+                                      </h1>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- ACCOUNT CAPSULE -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="margin-top:18px;">
+                                  <tr>
+                                    <td style="width:100%; padding:0;">
+                                      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                             style="background:rgba(15,23,42,0.88); border-radius:999px; border:1px solid rgba(251,191,36,0.5);">
+                                        <tr>
+                                          <td style="padding:10px 16px; text-align:center;">
+                                            <p style="margin:0;
+                                                      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                      font-size:11px; text-transform:uppercase; letter-spacing:0.18em; color:#fde68a;">
+                                              MT5 Account
+                                            </p>
+                                            <p style="margin:2px 0 0;
+                                                      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                      font-size:18px; font-weight:650; color:#fef3c7;">
+                                              #{{ mt5_account_id }}
+                                            </p>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                              </td>
+                            </tr>
+                          </table>
+                          <!-- END BANNER -->
+
+                        </td>
+                      </tr>
+
+                      <!-- BODY CONTENT -->
+                      <tr>
+                        <td style="padding:26px 26px 30px;">
+
+                          <!-- GREETING -->
+                          <p style="margin:0 0 12px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:16px; font-weight:600; color:#0f172a;">
+                            Hi {{ trader_name }},
+                          </p>
+
+                          <!-- INTRO TEXT -->
+                          <p style="margin:0 0 18px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:14px; line-height:1.9; color:#475569;">
+                            Your funded account on the <strong>{{ challenge_name }}</strong> challenge has reached the maximum number of <strong>{{ max_payouts }}</strong> paid payouts. As a result, this account is now <strong>permanently closed</strong>.
+                          </p>
+
+                          <p style="margin:0 0 18px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:14px; line-height:1.9; color:#475569;">
+                            This is <strong>not a breach</strong> — you have successfully completed all available payouts for this account.
+                          </p>
+
+                          <!-- SUMMARY BOX -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 style="background:#f8fafc; border-radius:14px; margin:12px 0 22px;
+                                        border:1px solid #e2e8f0;">
+                            <tr>
+                              <td style="padding:16px 18px;">
+                                <p style="margin:0 0 10px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:13px; text-transform:uppercase; letter-spacing:0.12em; color:#64748b;">
+                                  Account Summary
+                                </p>
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                  <tr>
+                                    <td style="padding:4px 0;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; color:#6b7280;">
+                                      Challenge:
+                                    </td>
+                                    <td style="padding:4px 0; text-align:right;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; font-weight:600; color:#111827;">
+                                      {{ challenge_name }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:4px 0;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; color:#6b7280;">
+                                      MT5 Account:
+                                    </td>
+                                    <td style="padding:4px 0; text-align:right;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; font-weight:600; color:#111827;">
+                                      #{{ mt5_account_id }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:4px 0;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; color:#6b7280;">
+                                      Total Payouts:
+                                    </td>
+                                    <td style="padding:4px 0; text-align:right;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; font-weight:600; color:#111827;">
+                                      {{ total_payouts }} / {{ max_payouts }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:4px 0;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; color:#6b7280;">
+                                      Total Paid Out:
+                                    </td>
+                                    <td style="padding:4px 0; text-align:right;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; font-weight:600; color:#16a34a;">
+                                      {{ total_paid_amount }}
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+
+                          <!-- DIVIDER -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 style="margin:18px 0 16px;">
+                            <tr>
+                              <td class="wf-divider"
+                                  style="border-top:1px dashed #e2e8f0;"></td>
+                            </tr>
+                          </table>
+
+                          <!-- CLOSING -->
+                          <p style="margin:0 0 12px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:14px; line-height:1.8; color:#475569; text-align:center;">
+                            Congratulations on completing all your payouts! If you'd like to start a new challenge, visit your dashboard or reach out to our support team.
+                          </p>
+
+                          <p style="margin:0 0 12px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:14px; line-height:1.8; color:#475569; text-align:center;">
+                            If you have any questions, our team is available via <strong>live chat</strong>.
+                          </p>
+
+                          <p style="margin:0 0 24px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:15px; font-weight:700; color:#0f172a; text-align:center;">
+                            The WeFund Team
+                          </p>
+
+                          <!-- SUPPORT CTA -->
+                          <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="background:linear-gradient(135deg, #2de2fb 0%, #2e8ae0 80%);
+                                         border-radius:999px; text-align:center;">
+                                <a href="https://support.we-fund.com"
+                                   style="display:inline-block; padding:14px 36px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:14px; font-weight:700; color:#0b1120; text-decoration:none;
+                                          letter-spacing:0.12em; text-transform:uppercase;">
+                                  Open live chat
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+
+                        </td>
+                      </tr>
+                    </table>
+                    <!-- END INNER CARD -->
+
+                  </td>
+                </tr>
+              </table>
+              <!-- END OUTER BORDER -->
+
+            </td>
+          </tr>
+        </table>
+
+        <!-- FOOTER -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto;">
+          <tr>
+            <td style="padding:24px 20px 40px; text-align:center;">
+              <p style="margin:0 0 8px;
+                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                        font-size:11px; color:#9ca3af; line-height:1.6;">
+                &copy; 2025 WeFund. All rights reserved.
+              </p>
+              <p style="margin:0;
+                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                        font-size:11px; color:#6b7280; line-height:1.6;">
+                You're receiving this email because you have an active account with WeFund.
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

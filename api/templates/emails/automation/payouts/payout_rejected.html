@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeFund - Payout Rejected (Consistency Rules)</title>
+  <style>
+    /* =========================================================
+       LIGHT, SAFE ANIMATIONS
+       - Many Outlook desktop clients ignore animation.
+       - In those clients this will just show as a static email.
+       - No JS, no external fonts → safe for deliverability.
+       ========================================================= */
+
+    @keyframes wfBorderGlow {
+      0%   { box-shadow: 0 0 0 rgba(37,99,235,0.15); }
+      50%  { box-shadow: 0 0 26px rgba(37,99,235,0.65); }
+      100% { box-shadow: 0 0 0 rgba(37,99,235,0.15); }
+    }
+
+    @keyframes wfBannerSweep {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes wfDividerPulse {
+      0%   { opacity: 0.25; }
+      50%  { opacity: 0.85; }
+      100% { opacity: 0.25; }
+    }
+
+    .wf-outer {
+      animation: wfBorderGlow 7s ease-in-out infinite;
+    }
+
+    .wf-banner {
+      background-size: 210% 100% !important;
+      animation: wfBannerSweep 14s linear infinite;
+    }
+
+    .wf-divider {
+      animation: wfDividerPulse 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body style="margin:0; padding:0; -webkit-text-size-adjust:100%; background-color:#020617;">
+
+  <!-- FULL BACKGROUND / FRAME -->
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+         style="background-color:#020617;
+                background-image:
+                  radial-gradient(circle at 0% 0%, rgba(37,99,235,0.30) 0, transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(37,99,235,0.22) 0, transparent 60%);
+                background-repeat:no-repeat;">
+    <tr>
+      <td style="padding:0;">
+
+        <!-- LOGO -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto;">
+          <tr>
+            <td style="text-align:center; padding:40px 20px 20px;">
+              <img src="https://framerusercontent.com/images/TLmG1D7JDrVZ3B3rGEJealXM4s.png"
+                   alt="WeFund Logo"
+                   width="220"
+                   style="display:block; margin:0 auto; max-width:220px; height:auto; border:0;" />
+            </td>
+          </tr>
+        </table>
+
+        <!-- MAIN WRAPPER -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto; padding:0 16px 48px;">
+          <tr>
+            <td>
+
+              <!-- OUTER GLOW BORDER (ANIMATED WHERE SUPPORTED) -->
+              <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                     class="wf-outer"
+                     style="background:linear-gradient(135deg, #1d4ed8 0%, #2563eb 40%, #38bdf8 100%);
+                            border-radius:26px; padding:2px;">
+                <tr>
+                  <td>
+
+                    <!-- INNER CARD -->
+                    <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                           style="background:#ffffff; border-radius:24px; overflow:hidden;">
+                      <tr>
+                        <td style="padding:0;">
+
+                          <!-- TOP BANNER / HUD -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 class="wf-banner"
+                                 style="background:linear-gradient(120deg, #0b1120 0%, #1d4ed8 40%, #0ea5e9 80%);
+                                        border-radius:24px 24px 0 0;">
+                            <tr>
+                              <td style="padding:20px 24px 18px;">
+
+                                <!-- STATUS ROW -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                  <tr>
+                                    <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+                                               color:#93c5fd; text-align:left;">
+                                      Payout Status · <span style="color:#f87171;">Rejected</span>
+                                    </td>
+                                    <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+                                               color:#bfdbfe; text-align:right;">
+                                      Risk Team
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- MAIN TITLE -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="margin-top:16px;">
+                                  <tr>
+                                    <td style="text-align:center;">
+                                      <p style="margin:0 0 8px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+                                                color:#bae6fd;">
+                                        Dear Trader
+                                      </p>
+                                      <h1 style="margin:0;
+                                                 font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                 font-size:22px; font-weight:750; color:#eff6ff; line-height:1.4;">
+                                        Payout Rejected – Consistency Rules
+                                      </h1>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                              </td>
+                            </tr>
+                          </table>
+
+                          <!-- BODY CONTENT -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="padding:28px 24px 24px;">
+
+                                <!-- INTRO MESSAGE -->
+                                <p style="margin:0 0 24px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:15px; line-height:1.7; color:#475569; text-align:center;">
+                                  Your payout request has been reviewed by the risk team. Due to a <strong style="color:#dc2626;">soft breach of the consistency rules</strong>, this payout request cannot be approved.
+                                </p>
+
+                                <!-- SUMMARY SECTION -->
+                                <h2 style="margin:0 0 16px;
+                                           font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                           font-size:15px; font-weight:700; color:#0f172a; text-transform:uppercase; letter-spacing:0.08em;">
+                                  Summary
+                                </h2>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#f8fafc; border-radius:12px; border:1px solid #e2e8f0; margin:0 0 24px;">
+                                  <tr>
+                                    <td style="padding:16px 18px;">
+                                      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#64748b;">
+                                                  Account Type
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#0f172a; text-align:right;">
+                                                  HFT 1-Step – ${{ACCOUNT_SIZE}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#64748b;">
+                                                  MT5 Account
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#0f172a; text-align:right;">
+                                                  {{MT5_ACCOUNT}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#64748b;">
+                                                  Total Cycle Profit
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#16a34a; text-align:right;">
+                                                  ${{TOTAL_CYCLE_PROFIT}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#64748b;">
+                                                  Requested Payout ({{PROFIT_SPLIT_PERCENT}}%)
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#0f172a; text-align:right;">
+                                                  ${{REQUESTED_PAYOUT}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#64748b;">
+                                                  Allowed Deduction (10%)
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#f59e0b; text-align:right;">
+                                                  ${{THRESHOLD_10_PERCENT}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td style="padding:6px 0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:700; color:#64748b;">
+                                                  Total Deductions
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:700; color:#dc2626; text-align:right;">
+                                                  ${{TOTAL_DEDUCTIONS}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- THRESHOLD POLICY -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#fef3c7; border-radius:12px; margin:0 0 28px;
+                                              border:1px solid #fde68a;">
+                                  <tr>
+                                    <td style="padding:14px 16px;">
+                                      <p style="margin:0 0 6px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; font-weight:700; color:#92400e; text-transform:uppercase; letter-spacing:0.08em;">
+                                        ⚠️ Threshold Policy
+                                      </p>
+                                      <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; line-height:1.7; color:#78350f;">
+                                        For HFT 1-Step live accounts, all positive deductions from consistency checks (daily profit, lot size consistency, trades under 60 seconds, aggregated trades, etc.) may not exceed <strong>10% of the total-cycle profit</strong>. If the total deductions are higher than this 10% threshold, the payout for that cycle must be declined, even if the account is in profit. <strong>The account itself remains active for future payout cycles.</strong>
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- DETAILED CONSISTENCY REVIEW HEADING -->
+                                <h2 style="margin:0 0 18px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:15px; font-weight:700; color:#0f172a; text-transform:uppercase; letter-spacing:0.08em; text-align:center;">
+                                Detailed Consistency Review
+                                </h2>
+
+                                <!-- DIVIDER -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    style="margin:0 0 24px;">
+                                <tr>
+                                    <td class="wf-divider"
+                                        style="border-top:1px dashed #e2e8f0;"></td>
+                                </tr>
+                                </table>
+
+                                {% if profit_examples %}
+                                <!-- PROFIT CONSISTENCY RULE -->
+                                <h3 style="margin:0 0 12px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:14px; font-weight:700; color:#1e40af;">
+                                📊 Profit Consistency Rule
+                                </h3>
+
+                                <p style="margin:0 0 14px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:13px; line-height:1.6; color:#475569;">
+                                No single trade and no single trading day may exceed <strong>30% of your total-cycle profit</strong>.
+                                </p>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    style="background:#f1f5f9; border-radius:8px; margin:0 0 16px; padding:12px 14px;">
+                                <tr>
+                                    <td>
+                                    <p style="margin:0 0 6px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; font-weight:600; color:#64748b;">
+                                        Findings this cycle:
+                                    </p>
+                                    <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; line-height:1.6; color:#0f172a;">
+                                        • Daily PnL above limit:
+                                        <strong style="color:#dc2626;">${{ DAILY_PROFIT_DED_TOTAL }}</strong><br>
+                                        • Single-trade PnL above limit:
+                                        <strong style="color:#dc2626;">${{ SINGLE_TRADE_DED_TOTAL }}</strong>
+                                    </p>
+                                    </td>
+                                </tr>
+                                </table>
+
+                                <p style="margin:0 0 8px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:12px; font-weight:600; color:#64748b;">
+                                Examples of breached trades (not a full list):
+                                </p>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    style="background:#fff; border-radius:8px; border:1px solid #e2e8f0; margin:0 0 24px;">
+                                {% for ex in profit_examples %}
+                                <tr>
+                                    <td style="padding:10px 12px; border-bottom:1px solid #f1f5f9;">
+                                    <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; line-height:1.5; color:#475569;">
+                                        • {{ ex.date }} – Daily profit above 30% limit –
+                                        <strong style="color:#dc2626;">${{ ex.amount }}</strong>
+                                        (trade #{{ ex.trade_id }})
+                                    </p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </table>
+
+                                <p style="margin:0 0 24px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:12px; font-style:italic; color:#64748b;">
+                                The amounts above are only a few of the highest breaches. All breached trades combined are included in the total deduction amount of ${{ TOTAL_DEDUCTIONS }}.
+                                </p>
+                                {% endif %}
+
+
+                                {% if lot_examples %}
+                                <!-- LOT SIZE CONSISTENCY RULE -->
+                                <h3 style="margin:0 0 12px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:14px; font-weight:700; color:#1e40af;">
+                                📏 Lot Size Consistency Rule
+                                </h3>
+
+                                <p style="margin:0 0 14px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:13px; line-height:1.6; color:#475569;">
+                                Your average lot size determines your allowed trading range. Maximum lot size allowed:
+                                <strong>100% above average</strong>. Minimum lot size allowed:
+                                <strong>70% below average</strong>.
+                                </p>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    style="background:#f1f5f9; border-radius:8px; margin:0 0 16px; padding:12px 14px;">
+                                <tr>
+                                    <td>
+                                    <p style="margin:0 0 6px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; font-weight:600; color:#64748b;">
+                                        Summary this cycle:
+                                    </p>
+                                    <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; line-height:1.6; color:#0f172a;">
+                                        • Average lot size: <strong>{{ AVG_LOT }}</strong><br>
+                                        • Allowed range:
+                                        <strong>{{ MIN_ALLOWED_LOT }} to {{ MAX_ALLOWED_LOT }} lots</strong>
+                                    </p>
+                                    </td>
+                                </tr>
+                                </table>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    style="background:#fff; border-radius:8px; border:1px solid #e2e8f0; margin:0 0 24px;">
+                                {% for ex in lot_examples %}
+                                <tr>
+                                    <td style="padding:10px 12px; border-bottom:1px solid #f1f5f9;">
+                                    <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; line-height:1.5; color:#475569;">
+                                        • Trade #{{ ex.trade_id }} – Lot size {{ ex.lot }} –
+                                        <strong style="color:#dc2626;">${{ ex.profit }}</strong>
+                                    </p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </table>
+                                {% endif %}
+
+
+                                {% if u60_examples %}
+                                <!-- TRADES UNDER 60 SECONDS -->
+                                <h3 style="margin:0 0 12px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:14px; font-weight:700; color:#1e40af;">
+                                ⚡ Trades Closed Under 60 Seconds
+                                </h3>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    style="background:#fff; border-radius:8px; border:1px solid #e2e8f0; margin:0 0 24px;">
+                                {% for ex in u60_examples %}
+                                <tr>
+                                    <td style="padding:10px 12px; border-bottom:1px solid #f1f5f9;">
+                                    <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; line-height:1.5; color:#475569;">
+                                        • Trade #{{ ex.trade_id }} – {{ ex.duration }} seconds –
+                                        <strong style="color:#dc2626;">${{ ex.profit }}</strong>
+                                    </p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </table>
+                                {% endif %}
+
+
+                                {% if agg_examples %}
+                                <!-- AGGREGATED TRADES -->
+                                <h3 style="margin:0 0 12px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:14px; font-weight:700; color:#1e40af;">
+                                🔗 Aggregated Trades (≤30 Seconds = 1 Position)
+                                </h3>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    style="background:#fff; border-radius:8px; border:1px solid #e2e8f0; margin:0 0 24px;">
+                                {% for ex in agg_examples %}
+                                <tr>
+                                    <td style="padding:10px 12px;">
+                                    <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; line-height:1.5; color:#475569;">
+                                        • Symbol {{ ex.symbol }} – Aggregated lot size {{ ex.lot }} –
+                                        <strong style="color:#dc2626;">${{ ex.profit }}</strong>
+                                        (trade #{{ ex.trade_id }})
+                                    </p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </table>
+
+                                <p style="margin:0 0 28px;
+                                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                        font-size:12px; font-style:italic; color:#64748b;">
+                                All aggregated positions outside the allowed range are included in the total deduction amount of ${{ TOTAL_DEDUCTIONS }}.
+                                </p>
+                                {% endif %}
+
+
+                                <!-- DIVIDER -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    style="margin:0 0 24px;">
+                                <tr>
+                                    <td class="wf-divider"
+                                        style="border-top:1px dashed #e2e8f0;"></td>
+                                </tr>
+                                </table>
+
+
+                                <!-- TOTAL CYCLE RESULTS -->
+                                <h2 style="margin:0 0 16px;
+                                           font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                           font-size:15px; font-weight:700; color:#0f172a; text-transform:uppercase; letter-spacing:0.08em;">
+                                  Total Cycle Results
+                                </h2>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#fef2f2; border-radius:12px; border:2px solid #fecaca; margin:0 0 24px;">
+                                  <tr>
+                                    <td style="padding:16px 18px;">
+                                      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td style="padding:6px 0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#991b1b;">
+                                                  Total cycle profit:
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:700; color:#991b1b; text-align:right;">
+                                                  ${{TOTAL_CYCLE_PROFIT}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td style="padding:6px 0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#991b1b;">
+                                                  Total deductions (all breached trades):
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:700; color:#991b1b; text-align:right;">
+                                                  ${{TOTAL_DEDUCTIONS}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td style="padding:6px 0;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:600; color:#991b1b;">
+                                                  Percentage deducted:
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:700; color:#991b1b; text-align:right;">
+                                                  {{PERCENT_DEDUCTED}}%
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td style="padding:6px 0; border-top:2px solid #fca5a5;">
+                                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:700; color:#7f1d1d;">
+                                                  Allowed threshold (10%):
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                           font-size:13px; font-weight:700; color:#7f1d1d; text-align:right;">
+                                                  ${{THRESHOLD_10_PERCENT}}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <p style="margin:0 0 24px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:14px; line-height:1.7; color:#475569; text-align:center;">
+                                  Because the total deduction amount from all breached trades <strong style="color:#dc2626;">exceeds the allowed 10% threshold</strong>, this payout request must be rejected according to the WeFund GTC policy.
+                                </p>
+
+                                <!-- IMPORTANT CLARIFICATION -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#ecfdf5; border-radius:12px; margin:0 0 24px;
+                                              border:1px solid #bbf7d0;">
+                                  <tr>
+                                    <td style="padding:14px 16px;">
+                                      <p style="margin:0 0 6px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; font-weight:700; color:#065f46; text-transform:uppercase; letter-spacing:0.08em;">
+                                        ✅ Important Clarification
+                                      </p>
+                                      <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; line-height:1.7; color:#064e3b;">
+                                        <strong>Your account remains fully active.</strong> You may continue trading and request a payout again after your next trading cycle. No penalty is applied beyond this rejected payout cycle.
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- DIVIDER -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="margin:18px 0 16px;">
+                                  <tr>
+                                    <td class="wf-divider"
+                                        style="border-top:1px dashed #e2e8f0;"></td>
+                                  </tr>
+                                </table>
+
+                                <!-- CLOSING -->
+                                <p style="margin:0 0 12px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:14px; line-height:1.8; color:#475569; text-align:center;">
+                                  You can review all WeFund 1-Step consistency rules and examples here:<br>
+                                  <strong><a href="https://support.we-fund.com/en/articles/10455007-the-wefund-1-step-program#h_802692ab09" style="color:#2563eb; text-decoration:none;">WeFund 1-Step Program Rules</a></strong>
+                                </p>
+
+                                <p style="margin:0 0 20px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:14px; line-height:1.8; color:#475569; text-align:center;">
+                                  If you would like clarification on any specific trade or rule, our team is available to assist.
+                                </p>
+
+                                <p style="margin:0 0 24px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:15px; font-weight:700; color:#0f172a; text-align:center;">
+                                  WeFund Risk Team
+                                </p>
+
+                              </td>
+                            </tr>
+                          </table>
+
+                        </td>
+                      </tr>
+                    </table>
+                    <!-- END INNER CARD -->
+
+                  </td>
+                </tr>
+              </table>
+              <!-- END OUTER BORDER -->
+
+            </td>
+          </tr>
+        </table>
+
+        <!-- FOOTER -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto;">
+          <tr>
+            <td style="padding:24px 20px 20px; text-align:center;">
+              <!-- SOCIAL ICONS -->
+              <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0"
+                     style="margin:0 auto 16px;">
+                <tr>
+                  <td style="padding:0 6px;">
+                    <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                      <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png"
+                           alt="Facebook"
+                           width="32"
+                           height="32"
+                           style="display:block; border:0;" />
+                    </a>
+                  </td>
+                  <td style="padding:0 6px;">
+                    <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                      <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png"
+                           alt="Instagram"
+                           width="32"
+                           height="32"
+                           style="display:block; border:0;" />
+                    </a>
+                  </td>
+                  <td style="padding:0 6px;">
+                    <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                      <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png"
+                           alt="YouTube"
+                           width="32"
+                           height="32"
+                           style="display:block; border:0;" />
+                    </a>
+                  </td>
+                  <td style="padding:0 6px;">
+                    <a href="https://x.com/wefundofficial" target="_blank">
+                      <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png"
+                           alt="Twitter"
+                           width="32"
+                           height="32"
+                           style="display:block; border:0;" />
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 8px;
+                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                        font-size:11px; color:#9ca3af; line-height:1.6;">
+                © 2025 WeFund. All rights reserved.
+              </p>
+              <p style="margin:0;
+                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                        font-size:11px; color:#6b7280; line-height:1.6;">
+                You're receiving this email because you have an active account with WeFund.
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

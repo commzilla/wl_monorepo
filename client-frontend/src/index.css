@@ -1,0 +1,555 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbar but keep scrolling */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Chrome scroll speed optimization */
+@layer base {
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  main {
+    will-change: scroll-position;
+    transform: translateZ(0);
+  }
+}
+
+/* Chrome-specific optimizations */
+@layer base {
+  * {
+    /* Chrome rendering optimizations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Chrome-specific performance optimizations */
+  .chrome-optimized {
+    will-change: auto;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: layout style paint;
+  }
+  
+  /* Chrome-specific grid optimizations */
+  .grid {
+    contain: layout;
+    will-change: auto;
+  }
+  
+  /* Chrome-specific chart optimizations */
+  .recharts-wrapper {
+    contain: layout style paint;
+    will-change: auto;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  /* Chrome-specific scroll optimizations */
+  .overflow-auto, .overflow-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Chrome-specific animation optimizations */
+  .animate-pulse {
+    will-change: opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+
+@layer base {
+  :root {
+    /* Light theme colors with fallbacks for older browsers */
+    --background: #ffffff; /* fallback */
+    --background: 0 0% 100%;
+    --foreground: #0f172a; /* fallback */
+    --foreground: 222.2 84% 4.9%;
+
+    --card: #ffffff; /* fallback */
+    --card: 0 0% 100%;
+    --card-foreground: #0f172a; /* fallback */
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: #ffffff; /* fallback */
+    --popover: 0 0% 100%;
+    --popover-foreground: #0f172a; /* fallback */
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: #1e293b; /* fallback */
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: #f8fafc; /* fallback */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: #f1f5f9; /* fallback */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: #1e293b; /* fallback */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: #f1f5f9; /* fallback */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: #64748b; /* fallback */
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: #f1f5f9; /* fallback */
+    --accent: 210 40% 96.1%;
+    --accent-foreground: #1e293b; /* fallback */
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: #ef4444; /* fallback */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: #f8fafc; /* fallback */
+    --destructive-foreground: 210 40% 98%;
+
+    --warning: #f97316; /* fallback */
+    --warning: 24.6 95% 53.1%;
+    --warning-foreground: #ffffff; /* fallback */
+    --warning-foreground: 0 0% 100%;
+
+    --border: #e2e8f0; /* fallback */
+    --border: 214.3 31.8% 91.4%;
+    --input: #e2e8f0; /* fallback */
+    --input: 214.3 31.8% 91.4%;
+    --ring: #0f172a; /* fallback */
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: #f8fafc; /* fallback */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: #475569; /* fallback */
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: #1e293b; /* fallback */
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: #f8fafc; /* fallback */
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: #f1f5f9; /* fallback */
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: #1e293b; /* fallback */
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: #e2e8f0; /* fallback */
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: #3b82f6; /* fallback */
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --warning: 24.6 95% 53.1%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* Browser compatibility fixes */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* CSS Grid fallbacks */
+  @supports not (display: grid) {
+    .grid {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+    
+    .grid > * {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 0%;
+      flex: 1 1 0%;
+    }
+  }
+
+  /* Flexbox fallbacks for older browsers */
+  .flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .flex-col {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .flex-1 {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
+  }
+
+  /* Safari-specific fixes */
+  @supports (-webkit-appearance: none) {
+    input[type="date"],
+    input[type="time"],
+    input[type="datetime-local"] {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    
+    /* Fix for Safari button rendering */
+    button {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    /* Safari flexbox fixes */
+    .flex {
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+    }
+
+    /* Safari grid fixes */
+    .grid {
+      -webkit-grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    }
+
+    /* Safari text rendering fixes */
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Safari transform fixes */
+    .transform {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Safari-specific fixes for MyStats page */
+    .trading-stats-overview {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Safari chart container fixes */
+    .recharts-wrapper {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Safari modal positioning fixes */
+    .date-picker-modal {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
+    /* Safari table grid fixes */
+    .trade-history-table {
+      display: -webkit-grid;
+      display: grid;
+      -webkit-grid-template-columns: repeat(10, 1fr);
+      grid-template-columns: repeat(10, 1fr);
+      gap: 0;
+    }
+
+    /* Safari select dropdown fixes */
+    select {
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: none;
+    }
+
+    /* Safari input field fixes */
+    input {
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: inherit;
+    }
+
+    /* Safari button focus fixes */
+    button:focus {
+      outline: none;
+      -webkit-box-shadow: 0 0 0 2px rgba(40, 191, 255, 0.4);
+      box-shadow: 0 0 0 2px rgba(40, 191, 255, 0.4);
+    }
+  }
+
+  /* Additional Safari fixes for older versions */
+  @supports (-webkit-touch-callout: none) and (not (translate: 0)) {
+    .transform {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Firefox-specific fixes */
+  @-moz-document url-prefix() {
+    .firefox-fix {
+      /* Firefox-specific styles */
+    }
+  }
+
+  /* Mobile browser fixes */
+  @supports (-webkit-touch-callout: none) {
+    /* iOS Safari specific styles */
+    .ios-fix {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* High DPI screen fixes */
+  @media screen and (-webkit-min-device-pixel-ratio: 2),
+         screen and (min-resolution: 2dppx) {
+    /* High DPI fixes */
+    .high-dpi {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  /* Animation performance fixes */
+  .animate-accordion-down,
+  .animate-accordion-up {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+
+  /* macOS Chrome/Brave specific fixes for data flickering */
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {
+    /* Target Retina displays specifically */
+    .trading-stats-overview,
+    .metric-card {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
+      will-change: auto;
+    }
+    
+    /* Prevent text flickering on macOS Chrome/Brave */
+    .metric-value {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    /* Chart container stability */
+    .recharts-wrapper,
+    .recharts-surface {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+  }
+
+  /* Chrome/Brave specific fixes for macOS */
+  @supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
+    /* Detect macOS Chrome/Brave */
+    .stats-container {
+      contain: layout style paint;
+      isolation: isolate;
+    }
+    
+    /* Prevent layout thrashing during data updates */
+    .metric-grid {
+      contain: layout;
+    }
+    
+    /* Optimize gradient rendering */
+    .gradient-bg {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: auto;
+    }
+  }
+
+  /* Enhanced scrollbar styling for webkit browsers */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted) / 0.6);
+    border-radius: 6px;
+    margin: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.8);
+    border-radius: 6px;
+    border: 2px solid hsl(var(--background) / 0.8);
+    box-shadow: 0 0 0 1px hsl(var(--border)), 0 2px 8px hsl(var(--primary) / 0.2);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.7);
+    border-color: hsl(var(--background));
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.6), 0 4px 12px hsl(var(--primary) / 0.35);
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: hsl(var(--primary) / 0.85);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: hsl(var(--background));
+  }
+
+  /* Firefox scrollbar styling */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground)) hsl(var(--muted));
+  }
+
+  /* Thin scrollbars for small containers */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    border: 1px solid hsl(var(--background));
+  }
+
+  /* Sidebar scrollbar — thin, appears on hover */
+  .sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  .sidebar-scroll:hover {
+    scrollbar-color: rgba(58, 179, 255, 0.3) transparent;
+  }
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  .sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .sidebar-scroll:hover::-webkit-scrollbar-thumb {
+    background: rgba(58, 179, 255, 0.3);
+  }
+  .sidebar-scroll:hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(58, 179, 255, 0.5);
+  }
+
+  /* Hide scrollbars but maintain functionality */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* WeCoins progress ring glow animation */
+  .ring-glow {
+    animation: ring-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes ring-glow {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(40,191,255,0.3)); }
+    50% { filter: drop-shadow(0 0 8px rgba(40,191,255,0.6)); }
+  }
+
+  /* Focus styles for accessibility */
+  :focus {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Print styles */
+  @media print {
+    * {
+      background: transparent !important;
+      color: black !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    
+    .no-print {
+      display: none !important;
+    }
+  }
+}

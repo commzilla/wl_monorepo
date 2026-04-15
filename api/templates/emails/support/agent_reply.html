@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeFund Support</title>
+    <style>
+        body {
+            background-color: #f4f4f7;
+            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-text-size-adjust: 100%;
+        }
+        .wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 10px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0 15px;
+        }
+        .header img {
+            height: 36px;
+            width: auto;
+        }
+        .ticket-card {
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #e1e4e8;
+            overflow: hidden;
+        }
+        .ticket-bar {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 12px 24px;
+            font-size: 12px;
+        }
+        .ticket-bar span {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .ticket-body {
+            padding: 28px 24px;
+            font-size: 15px;
+            color: #1a1a1a;
+        }
+        .ticket-body p { margin: 0 0 14px 0; }
+        .ticket-body a { color: #2563eb; }
+        .ticket-body img { max-width: 100%; height: auto; }
+        .agent-sig {
+            border-top: 1px solid #e5e7eb;
+            margin-top: 24px;
+            padding-top: 16px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+        .agent-name {
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 14px;
+        }
+        .reply-bar {
+            background: #f0fdf4;
+            border-top: 1px solid #e1e4e8;
+            padding: 14px 24px;
+            font-size: 13px;
+            color: #166534;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 10px;
+            font-size: 11px;
+            color: #9ca3af;
+        }
+        .footer a { color: #6b7280; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <img src="https://framerusercontent.com/images/YQ3hotbZLJJyETtNwdFTeG3QhA.png" alt="WeFund">
+        </div>
+        <div class="ticket-card">
+            <div class="ticket-bar">
+                {% if ticket_id %}Ticket <span>#{{ ticket_id }}</span> &middot; {% endif %}{{ subject }}
+            </div>
+            <div class="ticket-body">
+                {{ body_content|safe }}
+                {% if agent_name %}
+                <div class="agent-sig">
+                    <div class="agent-name">{{ agent_name }}</div>
+                    WeFund Support Team
+                </div>
+                {% endif %}
+            </div>
+            <div class="reply-bar">
+                Simply reply to this email to continue the conversation.
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; WeFund &middot; <a href="https://we-fund.com">we-fund.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

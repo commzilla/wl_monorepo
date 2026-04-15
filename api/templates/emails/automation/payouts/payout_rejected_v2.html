@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeFund - Payout Request Update</title>
+  <style>
+    @keyframes wfBorderGlow {
+      0%   { box-shadow: 0 0 0 rgba(37,99,235,0.15); }
+      50%  { box-shadow: 0 0 26px rgba(37,99,235,0.65); }
+      100% { box-shadow: 0 0 0 rgba(37,99,235,0.15); }
+    }
+    @keyframes wfBannerSweep {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes wfDividerPulse {
+      0%   { opacity: 0.25; }
+      50%  { opacity: 0.85; }
+      100% { opacity: 0.25; }
+    }
+    .wf-outer { animation: wfBorderGlow 7s ease-in-out infinite; }
+    .wf-banner { background-size: 210% 100% !important; animation: wfBannerSweep 14s linear infinite; }
+    .wf-divider { animation: wfDividerPulse 4s ease-in-out infinite; }
+  </style>
+</head>
+
+<body style="margin:0; padding:0; -webkit-text-size-adjust:100%; background-color:#020617;">
+
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+         style="background-color:#020617;
+                background-image:
+                  radial-gradient(circle at 0% 0%, rgba(37,99,235,0.30) 0, transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(37,99,235,0.22) 0, transparent 60%);
+                background-repeat:no-repeat;">
+    <tr>
+      <td style="padding:0;">
+
+        <!-- LOGO -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto;">
+          <tr>
+            <td style="text-align:center; padding:40px 20px 20px;">
+              <img src="https://framerusercontent.com/images/TLmG1D7JDrVZ3B3rGEJealXM4s.png"
+                   alt="WeFund Logo"
+                   width="220"
+                   style="display:block; margin:0 auto; max-width:220px; height:auto; border:0;" />
+            </td>
+          </tr>
+        </table>
+
+        <!-- MAIN WRAPPER -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto; padding:0 16px 48px;">
+          <tr>
+            <td>
+
+              <!-- OUTER BORDER -->
+              <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                     class="wf-outer"
+                     style="background:linear-gradient(135deg, #1d4ed8 0%, #2563eb 40%, #38bdf8 100%);
+                            border-radius:26px; padding:2px;">
+                <tr>
+                  <td>
+
+                    <!-- INNER CARD -->
+                    <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                           style="background:#ffffff; border-radius:24px; overflow:hidden;">
+                      <tr>
+                        <td style="padding:0;">
+
+                          <!-- TOP BANNER -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 class="wf-banner"
+                                 style="background:linear-gradient(120deg, #0b1120 0%, #1d4ed8 40%, #0ea5e9 80%);
+                                        border-radius:24px 24px 0 0;">
+                            <tr>
+                              <td style="padding:20px 24px 18px;">
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                  <tr>
+                                    <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+                                               color:#93c5fd; text-align:left;">
+                                      Payout Status · <span style="color:#f87171;">Rejected</span>
+                                    </td>
+                                    <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+                                               color:#bfdbfe; text-align:right;">
+                                      Risk Team
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="margin-top:16px;">
+                                  <tr>
+                                    <td style="text-align:center;">
+                                      <p style="margin:0 0 8px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+                                                color:#bae6fd;">
+                                        Dear Trader
+                                      </p>
+                                      <h1 style="margin:0;
+                                                 font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                 font-size:22px; font-weight:750; color:#eff6ff; line-height:1.4;">
+                                        Payout Request Update
+                                      </h1>
+                                      <p style="margin:10px 0 0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; color:#bfdbfe; line-height:1.6;">
+                                        {{ CHALLENGE_NAME }} ({{ CHALLENGE_TYPE }})
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                              </td>
+                            </tr>
+                          </table>
+
+                          <!-- BODY -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="padding:28px 24px 24px;">
+
+                                <!-- INTRO -->
+                                <p style="margin:0 0 18px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:15px; line-height:1.7; color:#475569; text-align:center;">
+                                  Your payout request has been reviewed by the risk team. Unfortunately, we are unable to
+                                  process this withdrawal at this time.
+                                </p>
+
+                                <!-- VIOLATION (SAFE PHRASE) -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#fff7ed; border:1px solid #fed7aa; border-radius:12px; margin:0 0 22px;">
+                                  <tr>
+                                    <td style="padding:14px 16px;">
+                                      <p style="margin:0 0 6px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; font-weight:700; color:#9a3412; text-transform:uppercase; letter-spacing:0.08em;">
+                                        Review Outcome
+                                      </p>
+                                      <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; line-height:1.7; color:#7c2d12;">
+                                        Our review identified <strong>{{ VIOLATION_REASON }}</strong>.
+                                        This falls outside the parameters outlined in our Trading Guidelines.
+                                      </p>
+                                      <p style="margin:10px 0 0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; line-height:1.6; color:#9a3412;">
+                                        Reference: <strong>{{ PRIMARY_RULE }}</strong>
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- SUMMARY -->
+                                <h2 style="margin:0 0 16px;
+                                           font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                           font-size:15px; font-weight:700; color:#0f172a; text-transform:uppercase; letter-spacing:0.08em;">
+                                  Summary
+                                </h2>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#f8fafc; border-radius:12px; border:1px solid #e2e8f0; margin:0 0 24px;">
+                                  <tr>
+                                    <td style="padding:16px 18px;">
+                                      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+
+                                        <tr>
+                                        <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%">
+                                            <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                        font-size:13px; font-weight:600; color:#64748b;">
+                                                Challenge Name
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                        font-size:13px; font-weight:600; color:#0f172a; text-align:right;">
+                                                {{ CHALLENGE_NAME }}
+                                                </td>
+                                            </tr>
+                                            </table>
+                                        </td>
+                                        </tr>
+
+                                        <tr>
+                                        <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%">
+                                            <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                        font-size:13px; font-weight:600; color:#64748b;">
+                                                Challenge Type
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                        font-size:13px; font-weight:600; color:#0f172a; text-align:right;">
+                                                {{ CHALLENGE_TYPE }}
+                                                </td>
+                                            </tr>
+                                            </table>
+                                        </td>
+                                        </tr>
+
+                                        <tr>
+                                        <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%">
+                                            <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                        font-size:13px; font-weight:600; color:#64748b;">
+                                                Account Size
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                        font-size:13px; font-weight:600; color:#0f172a; text-align:right;">
+                                                ${{ ACCOUNT_SIZE }}
+                                                </td>
+                                            </tr>
+                                            </table>
+                                        </td>
+                                        </tr>
+
+
+                                        <tr>
+                                          <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:13px; font-weight:600; color:#64748b;">
+                                                  MT5 Account
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:13px; font-weight:600; color:#0f172a; text-align:right;">
+                                                  {{ MT5_ACCOUNT }}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+
+                                        <tr>
+                                          <td style="padding:6px 0; border-bottom:1px solid #e2e8f0;">
+                                            <table role="presentation" width="100%">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:13px; font-weight:600; color:#64748b;">
+                                                  Total Cycle Profit
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:13px; font-weight:600; color:#16a34a; text-align:right;">
+                                                  ${{ TOTAL_CYCLE_PROFIT }}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+
+                                        <tr>
+                                          <td style="padding:6px 0;">
+                                            <table role="presentation" width="100%">
+                                              <tr>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:13px; font-weight:600; color:#64748b;">
+                                                  Requested Payout ({{ PROFIT_SPLIT_PERCENT }}%)
+                                                </td>
+                                                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:13px; font-weight:600; color:#0f172a; text-align:right;">
+                                                  ${{ REQUESTED_PAYOUT }}
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- EXAMPLES -->
+                                {% if HAS_EXAMPLES %}
+                                <h2 style="margin:0 0 14px;
+                                           font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                           font-size:15px; font-weight:700; color:#0f172a; text-transform:uppercase; letter-spacing:0.08em;">
+                                  Examples (Not Exhaustive)
+                                </h2>
+
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#ffffff; border-radius:12px; border:1px solid #e2e8f0; margin:0 0 24px;">
+                                  {% for ex in EXAMPLE_TRADES %}
+                                  <tr>
+                                    <td style="padding:10px 12px; border-bottom:1px solid #f1f5f9;">
+                                      <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; line-height:1.6; color:#475569;">
+                                        • {{ ex }}
+                                      </p>
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </table>
+
+                                <p style="margin:0 0 18px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:12px; font-style:italic; color:#64748b; text-align:center;">
+                                  These examples are provided for clarity and do not represent the full set of reviewed activity.
+                                </p>
+                                {% endif %}
+
+                                <!-- IMPORTANT CLARIFICATION -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#ecfdf5; border-radius:12px; margin:0 0 18px; border:1px solid #bbf7d0;">
+                                  <tr>
+                                    <td style="padding:14px 16px;">
+                                      <p style="margin:0 0 6px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; font-weight:700; color:#065f46; text-transform:uppercase; letter-spacing:0.08em;">
+                                        ✅ Important Clarification
+                                      </p>
+                                      <p style="margin:0;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:13px; line-height:1.7; color:#064e3b;">
+                                        <strong>Your account remains fully active.</strong> You may continue trading and request a payout again after your next trading cycle.
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- APPEAL -->
+                                <p style="margin:0 0 18px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:14px; line-height:1.8; color:#475569; text-align:center;">
+                                  If you believe this decision was made in error, you may submit an appeal within
+                                  <strong>14 days</strong> through your account portal.
+                                </p>
+
+                                <!-- SIGNOFF -->
+                                <p style="margin:0 0 8px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:15px; font-weight:700; color:#0f172a; text-align:center;">
+                                  WeFund Risk Team
+                                </p>
+
+                              </td>
+                            </tr>
+                          </table>
+
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+        <!-- FOOTER -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto;">
+          <tr>
+            <td style="padding:24px 20px 20px; text-align:center;">
+              <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0"
+                     style="margin:0 auto 16px;">
+                <tr>
+                  <td style="padding:0 6px;">
+                    <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                      <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png"
+                           alt="Facebook" width="32" height="32" style="display:block; border:0;" />
+                    </a>
+                  </td>
+                  <td style="padding:0 6px;">
+                    <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                      <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png"
+                           alt="Instagram" width="32" height="32" style="display:block; border:0;" />
+                    </a>
+                  </td>
+                  <td style="padding:0 6px;">
+                    <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                      <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png"
+                           alt="YouTube" width="32" height="32" style="display:block; border:0;" />
+                    </a>
+                  </td>
+                  <td style="padding:0 6px;">
+                    <a href="https://x.com/wefundofficial" target="_blank">
+                      <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png"
+                           alt="Twitter" width="32" height="32" style="display:block; border:0;" />
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 8px;
+                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                        font-size:11px; color:#9ca3af; line-height:1.6;">
+                © 2025 WeFund. All rights reserved.
+              </p>
+              <p style="margin:0;
+                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                        font-size:11px; color:#6b7280; line-height:1.6;">
+                You're receiving this email because you have an active account with WeFund.
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

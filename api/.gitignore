@@ -1,0 +1,63 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.sqlite3
+
+# ======================
+# Virtual Environments
+# ======================
+venv/
+env/
+ENV/
+myenv/
+*.venv
+
+# ======================
+# Django
+# ======================
+*.log
+*.pot
+*.pyc
+*.mo
+*.bak
+db.sqlite3
+local_settings.py
+staticfiles/
+static/
+media/
+.env
+.env.*
+
+# ======================
+# IDE & Editor settings
+# ======================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ======================
+# System Files
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# Project Specific (custom additions)
+# ======================
+logs/
+offers/
+backup.sql
+orders_logs.txt
+test-file.txt
+test_engine_run.py

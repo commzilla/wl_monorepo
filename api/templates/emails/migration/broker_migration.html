@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WeFund | Broker Migration Completed</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: radial-gradient(circle at top left, #183442 30%, transparent 70%), 
+                        radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+            border-radius: 20px;
+        }
+        .logo {
+            text-align: center;
+        }
+        .logo img {
+            height: 120px;
+            width: auto;
+            margin-bottom: 30px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .main-content {
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .highlight {
+            background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+            border-radius: 10px;
+            color: #fff;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .credentials {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .credentials h3 {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            color: #2E8AE0;
+        }
+        .credentials table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .credentials th,
+        .credentials td {
+            text-align: left;
+            padding: 8px;
+        }
+        .credentials th {
+            background: #eee;
+            width: 130px;
+        }
+        .credentials tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .faq {
+            margin-top: 25px;
+        }
+        .faq h3 {
+            color: #2E8AE0;
+        }
+        .faq p {
+            margin-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #bbb;
+            font-size: 13px;
+        }
+        .socials a {
+            margin: 0 5px;
+        }
+        .socials img {
+            height: 32px;
+            width: 32px;
+        }
+        a.button {
+            display: inline-block;
+            padding: 15px 20px;
+            background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 10px; }
+            .main-content { padding: 10px; }
+            .credentials { padding: 7px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="logo">
+            <img src="https://framerusercontent.com/images/TLmG1D7JDrVZ3B3rGEJealXM4s.png" alt="WeFund Logo" />
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Dear {{ full_name }},</h1>
+
+            <p style="text-align:center; font-weight:bold;">
+                We’re excited to announce that your trading environment has just been upgraded!
+            </p>
+
+            <p>
+                To ensure even better execution speed, stability, and overall performance, <strong>WeFund</strong> has successfully completed its <strong>broker migration</strong>.
+            </p>
+
+            <div class="highlight">
+                Your New MT5 Login Credentials
+            </div>
+
+            <!-- Trading Account Credentials -->
+            <div class="credentials">
+                <h3>Trading Account Details</h3>
+                <table>
+                    <tr>
+                        <th>Login ID:</th>
+                        <td>{{ mt5_account_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Main Password:</th>
+                        <td>{{ mt5_password }}</td>
+                    </tr>
+                    <tr>
+                        <th>Investor Password:</th>
+                        <td>{{ mt5_investor_password }}</td>
+                    </tr>
+                    <tr>
+                        <th>Broker:</th>
+                        <td>Wefund Markets Ltd</td>
+                    </tr>
+                </table>
+            </div>
+
+            <p>
+                <strong>Good to know:</strong> Your <strong>WeFund Client Portal</strong> credentials remain unchanged. You can continue accessing your dashboard as usual — no action is needed on your side.
+            </p>
+
+            <p style="text-align:center;">
+                <a href="https://dashboard.we-fund.com/login" target="_blank" class="button">Go to Client Portal</a>
+            </p>
+
+            <p style="margin-top:20px; text-align:center;">
+                You can now log in and enjoy an enhanced trading experience.<br>
+                If you need any help, our support team is ready&nbsp;to&nbsp;assist&nbsp;you.
+            </p>
+
+            <hr style="margin:25px 0; border:none; border-top:1px solid #ddd;">
+
+            <div class="faq">
+                <h3>FAQ</h3>
+
+                <p><strong>1. Can I still use my old credentials?</strong><br>
+                <strong><em>No — the old credentials are no longer valid. Please use the new login details provided above.</em></strong></p>
+
+                <p><strong>2. Do I need to create a new account?</strong><br>
+                <strong><em>No, your account has already been migrated automatically. Simply log in using the new credentials.</em></strong></p>
+
+                <p><strong>3. Has anything changed in my client portal?</strong><br>
+                <strong><em>No, your WeFund dashboard remains exactly the same. You can still request payouts, view stats, and manage your accounts there.</em></strong></p>
+            </div>
+
+            <hr style="margin:25px 0; border:none; border-top:1px solid #ddd;">
+
+            <p style="text-align:center; font-weight:bold;">
+                The Future of Prop Trading,<br>
+                <span style="color:#2E8AE0;">— The WeFund Team</span>
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="socials" style="margin-bottom:10px;">
+                <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+                </a>
+                <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+                </a>
+                <a href="https://x.com/wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+                </a>
+            </div>
+            &copy; {{ now.year }} WeFund. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

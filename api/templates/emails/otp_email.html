@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WeFund | Email Verification</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: radial-gradient(circle at top left, #183442 30%, transparent 70%), 
+                        radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+            border-radius: 20px;
+        }
+        .logo { text-align: center; }
+        .logo img {
+            height: 120px;
+            width: auto;
+            margin-bottom: 30px;
+        }
+        h1, h2 { text-align: center; }
+        .main-content {
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .highlight {
+            background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+            border-radius: 10px;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.15em;
+        }
+        .otp-box {
+            display: inline-block;
+            background: #fafafa;
+            border: 2px dashed #2E8AE0;
+            border-radius: 10px;
+            padding: 16px 24px;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 6px;
+            color: #000;
+            margin: 20px 0;
+        }
+        a.button {
+            display: inline-block;
+            padding: 15px 20px;
+            background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #bbb;
+            font-size: 13px;
+        }
+        .socials a { margin: 0 5px; }
+        .socials img {
+            height: 32px;
+            width: 32px;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 10px; }
+            .main-content { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <div class="logo">
+            <img src="https://framerusercontent.com/images/TLmG1D7JDrVZ3B3rGEJealXM4s.png" alt="WeFund Logo" />
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1><strong>Hi {{ user_first_name|default:"there" }},</strong></h1>
+            <p style="text-align:center">
+                Use the verification code below to complete your registration to <strong>{{ product_name }}</strong>.
+            </p>
+
+            <div class="highlight">Your Verification Code</div>
+
+            <div style="text-align:center;">
+                <div class="otp-box">{{ otp }}</div>
+            </div>
+
+            <p style="text-align:center; margin-top:10px;">
+                This code expires in <strong>{{ expires_minutes }} minutes</strong>.
+            </p>
+
+            {% if cta_url %}
+            <div style="text-align:center; margin:25px 0;">
+                <a href="{{ cta_url }}" class="button" target="_blank">Verify Email</a>
+            </div>
+            {% endif %}
+
+            <p style="text-align:center; font-size:13px; color:#555;">
+                If you didn’t request this, please ignore this email.
+            </p>
+
+            <p style="text-align:center; font-weight:bold; margin-top:20px;">
+                — The WeFund Team
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="socials" style="margin-bottom:10px;">
+                <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+                </a>
+                <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+                </a>
+                <a href="https://x.com/wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+                </a>
+            </div>
+            &copy; {{ now.year }} WeFund. All rights reserved.
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeFund - Payout Request</title>
+  <style>
+    /* =========================================================
+       LIGHT, SAFE ANIMATIONS
+       - Many Outlook desktop clients ignore animation.
+       - In those clients this will just show as a static email.
+       - No JS, no external fonts → safe for deliverability.
+       ========================================================= */
+
+    @keyframes wfBorderGlow {
+      0%   { box-shadow: 0 0 0 rgba(37,99,235,0.15); }
+      50%  { box-shadow: 0 0 26px rgba(37,99,235,0.65); }
+      100% { box-shadow: 0 0 0 rgba(37,99,235,0.15); }
+    }
+
+    @keyframes wfBannerSweep {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes wfDividerPulse {
+      0%   { opacity: 0.25; }
+      50%  { opacity: 0.85; }
+      100% { opacity: 0.25; }
+    }
+
+    .wf-outer {
+      animation: wfBorderGlow 7s ease-in-out infinite;
+    }
+
+    .wf-banner {
+      background-size: 210% 100% !important;
+      animation: wfBannerSweep 14s linear infinite;
+    }
+
+    .wf-divider {
+      animation: wfDividerPulse 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body style="margin:0; padding:0; -webkit-text-size-adjust:100%; background-color:#020617;">
+
+  <!-- FULL BACKGROUND / FRAME -->
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+         style="background-color:#020617;
+                background-image:
+                  radial-gradient(circle at 0% 0%, rgba(37,99,235,0.30) 0, transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(37,99,235,0.22) 0, transparent 60%);
+                background-repeat:no-repeat;">
+    <tr>
+      <td style="padding:0;">
+
+        <!-- LOGO -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto;">
+          <tr>
+            <td style="text-align:center; padding:40px 20px 20px;">
+              <img src="https://framerusercontent.com/images/TLmG1D7JDrVZ3B3rGEJealXM4s.png"
+                   alt="WeFund Logo"
+                   width="220"
+                   style="display:block; margin:0 auto; max-width:220px; height:auto; border:0;" />
+            </td>
+          </tr>
+        </table>
+
+        <!-- MAIN WRAPPER -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto; padding:0 16px 48px;">
+          <tr>
+            <td>
+
+              <!-- OUTER GLOW BORDER (ANIMATED WHERE SUPPORTED) -->
+              <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                     class="wf-outer"
+                     style="background:linear-gradient(135deg, #1d4ed8 0%, #2563eb 40%, #38bdf8 100%);
+                            border-radius:26px; padding:2px;">
+                <tr>
+                  <td>
+
+                    <!-- INNER CARD -->
+                    <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                           style="background:#ffffff; border-radius:24px; overflow:hidden;">
+                      <tr>
+                        <td style="padding:0;">
+
+                          <!-- TOP BANNER / HUD -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 class="wf-banner"
+                                 style="background:linear-gradient(120deg, #0b1120 0%, #1d4ed8 40%, #0ea5e9 80%);
+                                        border-radius:24px 24px 0 0;">
+                            <tr>
+                              <td style="padding:20px 24px 18px;">
+
+                                <!-- STATUS ROW -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                  <tr>
+                                    <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+                                               color:#93c5fd; text-align:left;">
+                                      Payout Status · <span style="color:#4ade80;">{{ status }}</span>
+                                    </td>
+                                    <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+                                               color:#bfdbfe; text-align:right;">
+                                      Ref · WF-PAYOUT
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- MAIN TITLE -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="margin-top:16px;">
+                                  <tr>
+                                    <td style="text-align:center;">
+                                      <p style="margin:0 0 8px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+                                                color:#bae6fd;">
+                                        Hi {{ trader_name }}
+                                      </p>
+                                      <h1 style="margin:0;
+                                                 font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                 font-size:24px; font-weight:750; color:#eff6ff; line-height:1.35;">
+                                        Payout Request - {{ status }}
+                                      </h1>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                                <!-- AMOUNT CAPSULE -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="margin-top:18px;">
+                                  <tr>
+                                    <td style="width:100%; padding:0;">
+                                      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                             style="background:rgba(15,23,42,0.88); border-radius:999px; border:1px solid rgba(74,222,128,0.5);">
+                                        <tr>
+                                          <td style="padding:10px 16px; text-align:center;">
+                                            <p style="margin:0;
+                                                      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                      font-size:11px; text-transform:uppercase; letter-spacing:0.18em; color:#bbf7d0;">
+                                              Payout Amount
+                                            </p>
+                                            <p style="margin:2px 0 0;
+                                                      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                      font-size:18px; font-weight:650; color:#dcfce7;">
+                                              {{ amount }}
+                                            </p>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+
+                              </td>
+                            </tr>
+                          </table>
+                          <!-- END BANNER -->
+
+                        </td>
+                      </tr>
+
+                      <!-- BODY CONTENT -->
+                      <tr>
+                        <td style="padding:26px 26px 30px;">
+
+                          <!-- GREETING -->
+                          <p style="margin:0 0 12px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:16px; font-weight:600; color:#0f172a;">
+                            Hi {{ trader_name }},
+                          </p>
+
+                          <!-- INTRO TEXT -->
+                          <p style="margin:0 0 18px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:14px; line-height:1.9; color:#475569;">
+                            Your payout request for <strong>{{ amount }}</strong> has been <strong>{{ status }}</strong>.
+                          </p>
+
+                          <!-- SUMMARY BOX -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 style="background:#f8fafc; border-radius:14px; margin:12px 0 22px;
+                                        border:1px solid #e2e8f0;">
+                            <tr>
+                              <td style="padding:16px 18px;">
+                                <p style="margin:0 0 10px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:13px; text-transform:uppercase; letter-spacing:0.12em; color:#64748b;">
+                                  Payout summary
+                                </p>
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                  <tr>
+                                    <td style="padding:4px 0;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; color:#6b7280;">
+                                      Amount:
+                                    </td>
+                                    <td style="padding:4px 0; text-align:right;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; font-weight:600; color:#111827;">
+                                      {{ released_fund }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:4px 0;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; color:#6b7280;">
+                                      Status:
+                                    </td>
+                                    <td style="padding:4px 0; text-align:right;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; font-weight:600; color:#16a34a;">
+                                      {{ status }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:4px 0;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; color:#6b7280;">
+                                      Reviewed at:
+                                    </td>
+                                    <td style="padding:4px 0; text-align:right;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; font-weight:500; color:#111827;">
+                                      {{ reviewed_at }}
+                                    </td>
+                                  </tr>
+                                  {% if is_custom_amount and exclude_amount and exclude_reason %}
+                                  <tr>
+                                    <td style="padding:4px 0;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; color:#6b7280;">
+                                      Excluded Amount:
+                                    </td>
+                                    <td style="padding:4px 0; text-align:right;
+                                               font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                               font-size:14px; font-weight:600; color:#dc2626;">
+                                      {{ exclude_amount }} ({{ exclude_reason }})
+                                    </td>
+                                  </tr>
+                                  {% endif %}
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+
+                          <!-- NEXT STEP TITLE -->
+                          <p style="margin:0 0 6px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:13px; text-transform:uppercase; letter-spacing:0.14em; color:#64748b;">
+                            Your choice is required
+                          </p>
+                          <h2 style="margin:0 0 14px;
+                                     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                     font-size:16px; font-weight:700; color:#0f172a;">
+                            Choose how you want to proceed
+                          </h2>
+
+                          <!-- OPTIONS: 10X & NORMAL PAYOUT -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 style="margin:0 0 18px;">
+                            <tr>
+                              <td style="width:50%; padding:0 4px 10px; vertical-align:top;">
+                                <!-- OPTION 1: 10X -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#0f172a; border-radius:16px; border:1px solid #1d4ed8; min-height:220px;">
+                                  <tr>
+                                    <td style="padding:14px 14px 40px; text-align:left; vertical-align:top;">
+                                      <p style="margin:0 0 4px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:11px; text-transform:uppercase; letter-spacing:0.16em; color:#93c5fd;">
+                                        Option 1
+                                      </p>
+                                      <p style="margin:0 0 8px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:14px; font-weight:650; color:#e5eeff;">
+                                        Continue with 10X
+                                      </p>
+                                      <p style="margin:0 0 12px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; line-height:1.7; color:#cbd5f5;">
+                                        Use your approved payout to grow your account through the <strong>10X program</strong>.
+                                      </p>
+
+                                      <!-- PRIMARY CTA -->
+                                      <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                                             style="margin:0;">
+                                        <tr>
+                                          <td style="background:linear-gradient(135deg, #2de2fb 0%, #2e8ae0 80%);
+                                                     border-radius:999px; text-align:center;">
+                                            <a href="https://support.we-fund.com"
+                                               style="display:inline-block; padding:10px 14px;
+                                                      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                      font-size:11px; font-weight:700; color:#0b1120; text-decoration:none;
+                                                      letter-spacing:0.14em; text-transform:uppercase;">
+                                              Confirm 10X
+                                            </a>
+                                          </td>
+                                        </tr>
+                                      </table>
+
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+
+                              <td style="width:50%; padding:0 4px 10px; vertical-align:top;">
+                                <!-- OPTION 2: NORMAL PAYOUT -->
+                                <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="background:#f9fafb; border-radius:16px; border:1px solid #e5e7eb; min-height:220px;">
+                                  <tr>
+                                    <td style="padding:14px 14px 16px; text-align:left; vertical-align:top;">
+                                      <p style="margin:0 0 4px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:11px; text-transform:uppercase; letter-spacing:0.16em; color:#9ca3af;">
+                                        Option 2
+                                      </p>
+                                      <p style="margin:0 0 8px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:14px; font-weight:650; color:#111827;">
+                                        Receive payout normally
+                                      </p>
+                                      <p style="margin:0 0 8px;
+                                                font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                font-size:12px; line-height:1.7; color:#4b5563;">
+                                        If you prefer to take this payout instead of continuing with 10X:
+                                      </p>
+                                      <ul style="margin:0 0 0 18px; padding:0;
+                                                 font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                                 font-size:12px; line-height:1.7; color:#4b5563;">
+                                        <li>Send a short confirmation to our support team via <strong>live chat</strong>.</li>
+                                        <li>Once confirmed, we’ll process your payout within a few hours.</li>
+                                      </ul>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+
+                          <!-- VERIFICATION REMINDER -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 style="background:#ecfdf5; border-radius:12px; margin:4px 0 22px;
+                                        border:1px solid #bbf7d0;">
+                            <tr>
+                              <td style="padding:12px 14px;">
+                                <p style="margin:0;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:13px; line-height:1.7; color:#166534;">
+                                  <strong>✅ Important:</strong> Please ensure you are fully verified by <strong>Rise</strong>. Missing or incomplete verification can cause <strong>delays</strong> in processing your payout.
+                                </p>
+                              </td>
+                            </tr>
+                          </table>
+
+                          <!-- DIVIDER -->
+                          <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                 style="margin:18px 0 16px;">
+                            <tr>
+                              <td class="wf-divider"
+                                  style="border-top:1px dashed #e2e8f0;"></td>
+                            </tr>
+                          </table>
+
+                          <!-- CLOSING -->
+                          <p style="margin:0 0 12px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:14px; line-height:1.8; color:#475569; text-align:center;">
+                            We appreciate your trust in WeFund and we’re committed to delivering a <strong>smooth, fast payout experience</strong> every time.
+                          </p>
+
+                          <p style="margin:0 0 20px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:14px; line-height:1.8; color:#475569; text-align:center;">
+                            If you have any questions or need help deciding between 10X and a normal payout, our team is available via <strong>live chat</strong>.
+                          </p>
+
+                          <p style="margin:0 0 24px;
+                                    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                    font-size:15px; font-weight:700; color:#0f172a; text-align:center;">
+                            The WeFund Team
+                          </p>
+
+                          <!-- SUPPORT CTA -->
+                          <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="background:linear-gradient(135deg, #2de2fb 0%, #2e8ae0 80%);
+                                         border-radius:999px; text-align:center;">
+                                <a href="https://support.we-fund.com"
+                                   style="display:inline-block; padding:14px 36px;
+                                          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                                          font-size:14px; font-weight:700; color:#0b1120; text-decoration:none;
+                                          letter-spacing:0.12em; text-transform:uppercase;">
+                                  Open live chat
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+
+                        </td>
+                      </tr>
+                    </table>
+                    <!-- END INNER CARD -->
+
+                  </td>
+                </tr>
+              </table>
+              <!-- END OUTER BORDER -->
+
+            </td>
+          </tr>
+        </table>
+
+        <!-- FOOTER -->
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+               style="max-width:640px; margin:0 auto;">
+          <tr>
+            <td style="padding:24px 20px 40px; text-align:center;">
+              <p style="margin:0 0 8px;
+                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                        font-size:11px; color:#9ca3af; line-height:1.6;">
+                © {{ now.year }} WeFund. All rights reserved.
+              </p>
+              <p style="margin:0;
+                        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+                        font-size:11px; color:#6b7280; line-height:1.6;">
+                You’re receiving this email because you have an active account with WeFund.
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+

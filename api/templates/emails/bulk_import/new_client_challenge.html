@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Your WeFund Account & MT5 Credentials</title>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #000000;
+      margin: 0;
+      padding: 0;
+      color: #ffffff;
+    }
+
+    .email-wrapper {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #183442 30%, transparent 70%),
+                  radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+      border-radius: 20px;
+      padding: 35px;
+    }
+
+    .brand {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #2DE2FB;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #a8b3bb;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0 0 20px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    p {
+      font-size: 14px;
+      color: #d5d5d5;
+      line-height: 1.6;
+      margin: 0 0 12px;
+      text-align: center;
+    }
+
+    .section-title {
+      background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+      color: #ffffff;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin: 20px 0 10px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .box {
+      background: #ffffff;
+      color: #000000;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 15px;
+    }
+
+    .box-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .label {
+      color: #6b7280;
+    }
+
+    .value {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+      color: #ffffff !important;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #bbbbbb;
+      text-align: center;
+    }
+
+    @media (max-width: 650px) {
+      .card { padding: 20px; }
+      .box { padding: 10px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="email-wrapper">
+    <div class="card">
+
+      <div class="brand">{{ brand_name }}</div>
+      <div class="subtitle">Funded trader challenge portal</div>
+
+      <h1>Welcome, {{ full_name }} 👋</h1>
+
+      <p>
+        Your <strong>{{ brand_name }}</strong> account has been created and your first
+        challenge is now active.
+      </p>
+
+      <p>You can log in to your dashboard using your email address:</p>
+
+      <!-- Dashboard -->
+      <div class="section-title">Dashboard</div>
+
+      <div class="box">
+        <div class="box-row">
+          <span class="label">Login Email</span>
+          <span class="value">{{ email }}</span>
+        </div>
+        <div class="box-row">
+          <span class="label">Temporary Password</span>
+          <span class="value">{{ dashboard_password }}</span>
+        </div>
+        <div class="box-row">
+          <span class="label">Dashboard</span>
+          <span class="value">{{ dashboard_url }}</span>
+        </div>
+
+        <p style="margin-top:10px; font-size:12px; color:#6b7280; text-align:left;">
+          If this is your first time, please complete the password setup / reset flow on the
+          dashboard login page using this email.
+        </p>
+      </div>
+
+      <!-- Challenge -->
+      <div class="section-title">Challenge Details</div>
+
+      <div class="box">
+        <div class="box-row">
+          <span class="label">Challenge</span>
+          <span class="value">{{ challenge.name }}</span>
+        </div>
+        <div class="box-row">
+          <span class="label">Account Size</span>
+          <span class="value">{{ account_size }} {{ currency }}</span>
+        </div>
+        <div class="box-row">
+          <span class="label">Status</span>
+          <span class="value">Phase 1 - In Progress</span>
+        </div>
+      </div>
+
+      <!-- MT5 -->
+      <div class="section-title">MT5 Account</div>
+
+      <div class="box">
+        <div class="box-row">
+          <span class="label">Server</span>
+          <span class="value">{{ mt5_server }}</span>
+        </div>
+        <div class="box-row">
+          <span class="label">Login</span>
+          <span class="value">{{ mt5_login }}</span>
+        </div>
+        <div class="box-row">
+          <span class="label">Password</span>
+          <span class="value">{{ mt5_password }}</span>
+        </div>
+        <div class="box-row">
+          <span class="label">Investor Password</span>
+          <span class="value">{{ mt5_investor_password }}</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <a href="{{ dashboard_url }}" class="btn" target="_blank" rel="noopener">
+          Open Trader Dashboard
+        </a>
+      </div>
+
+      <p style="margin-top:16px; font-size:13px;">
+        Please keep your MT5 credentials confidential and do not share them with anyone.
+      </p>
+
+      <p style="font-size:13px;">
+        If you did not request this account, please contact support immediately.
+      </p>
+
+      <div class="footer">
+        &copy; {{ brand_name }} — All rights reserved.
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

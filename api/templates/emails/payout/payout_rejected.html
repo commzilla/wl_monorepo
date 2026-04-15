@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>WeFund - Payout Notification</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: radial-gradient(circle at top left, #183442 30%, transparent 70%), radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+            border-radius: 20px;
+        }
+        .logo {
+            text-align: center;
+        }
+        .logo img {
+            max-width: 300px;
+            width: 60%;
+            height: auto;
+            display: inline-block;
+            border: none;
+        }
+        .main-content {
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        h1, h2 {
+            margin: 0 0 12px 0;
+            padding-top: 20px;
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .highlight {
+            background-color: #2e8ae0;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.15em;
+        }
+        table.summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0 18px 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+        table.summary-table th, table.summary-table td {
+            text-align: left;
+            padding: 8px;
+        }
+        table.summary-table th {
+            background: #eee;
+            width: 160px;
+        }
+        table.summary-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .rejection-block {
+            color: #b40000;
+            font-weight: bold;
+            margin: 20px 0 0 0;
+            text-align: left;
+            padding: 10px;
+            border-left: 4px solid #b40000;
+            background-color: #fceaea;
+            border-radius: 5px;
+        }
+        a.link {
+            color: #2E8AE0;
+            text-decoration: none;
+        }
+        .info-block {
+            margin: 20px 0;
+            text-align: center;
+            color: #000;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #bbb;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .socials a {
+            margin: 0 5px;
+            display: inline-block;
+        }
+        .socials img {
+            height: 32px;
+            width: 32px;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 10px; }
+            .main-content { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="logo">
+            <img src="https://framerusercontent.com/images/YQ3hotbZLJJyETtNwdFTeG3QhA.png" alt="WeFund Logo" />
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="main-content">
+            <h1><strong>Hi {{ trader_name }},</strong></h1>
+            <h2><strong>Payout Request - {{ status }}</strong></h2>
+
+            <div class="highlight">
+                Your payout request for <strong>{{ amount }}</strong> has been <strong>{{ status }}</strong>.
+            </div>
+
+            <table class="summary-table">
+                <tr>
+                    <th>Amount</th>
+                    <td>{{ amount }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ status }}</td>
+                </tr>
+                <tr>
+                    <th>Reviewed At</th>
+                    <td>{{ reviewed_at }}</td>
+                </tr>
+            </table>
+
+            {% if rejection_reason %}
+            <div class="rejection-block">
+                Rejection Reason: {{ rejection_reason }}
+            </div>
+            {% endif %}
+
+            <div class="info-block">
+                If you believe this to be a mistake, please contact us..
+            </div>
+            <div class="info-block">
+                We appreciate your trust in our services and are committed to ensuring a seamless and secure experience for your financial transactions.
+            </div>
+            <div class="info-block">
+                If you have any questions about your account or need assistance, feel free to reach out via live chat
+                <a href="https://support.we-fund.com" class="link" target="_blank">here</a>.
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+                </a>
+                <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+                </a>
+                <a href="https://x.com/wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+                </a>
+            </div>
+            &copy; {{ now.year }} WeFund. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

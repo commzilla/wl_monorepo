@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WeFund Evaluation Confirmation</title>
+  <style>
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: radial-gradient(circle at top left, #183442 30%, transparent 70%), radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+      border-radius: 15px;
+      padding: 30px;
+      color: #000;
+      background-color: #fff;
+      margin-top: 32px;
+    }
+    .welcome {
+      text-align: center;
+      font-weight: bold;
+      font-size: 28px;
+    }
+    .message {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 18px;
+    }
+    .credentials {
+      background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+      border-radius: 10px;
+      padding: 12px;
+      color: #fff;
+      text-align: center;
+      margin-top: 20px;
+    }
+    table.login-details {
+      margin: 12px auto;
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table.login-details th, table.login-details td {
+      padding: 8px;
+      border: 1px dashed #ccc;
+      text-align: center;
+      color: #333;
+    }
+    table.rules {
+      margin: 16px auto;
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table.rules th, table.rules td {
+      padding: 8px;
+      border: 1px dashed #ccc;
+      text-align: center;
+    }
+    .footer {
+      text-align: center;
+      margin: 14px 0;
+      color: #333;
+    }
+    .social-icons img {
+      height: 32px;
+      width: 32px;
+      margin: 0 5px;
+    }
+    a.button {
+      display: inline-block;
+      padding: 15px 20px;
+      background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      margin: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="welcome">Welcome {{ full_name }},</h1>
+    <div class="message">
+      <strong>Congratulations on successfully completing Phase 1 of the WeFund evaluation!</strong>
+      <br>You have demonstrated exceptional trading skills and discipline. You are now eligible to advance to the Verification Phase.<br>
+      In this phase, you will trade in a demo account while following our straightforward rules. Reach the profit target without violating any guidelines to qualify for a WeFund Simulated Funded Account.<br>
+      Please use the credentials below to log in and begin your journey to the next stage:
+    </div>
+
+    <div class="credentials">
+      <p><strong>Login Details</strong></p>
+      <table class="login-details">
+        <tr>
+          <th>Login</th>
+          <td>{{ mt5_login }}</td>
+        </tr>
+        <tr>
+          <th>Password</th>
+          <td>{{ mt5_password }}</td>
+        </tr>
+        <tr>
+          <th>Investor Password</th>
+          <td>{{ investor_password }}</td>
+        </tr>
+        <tr>
+          <th>Server</th>
+          <td>Wefund Markets Ltd</td>
+        </tr>
+        <tr>
+          <th>Platform</th>
+          <td>MetaTrader5</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="footer">
+      Remember to adhere to all rules and guidelines to ensure your account remains active and on track to success.
+      <br><br>
+      <p>If you have any questions about starting your evaluation account or need assistance, contact us via live chat <a href="https://support.we-fund.com" target="_blank">here</a>.</p>
+    </div>
+
+    <div class="social-icons" style="text-align:center;">
+      <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+      </a>
+      <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+      </a>
+      <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+      </a>
+      <a href="https://x.com/wefundofficial" target="_blank">
+        <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+      </a>
+    </div>
+  </div>
+</body>
+</html>

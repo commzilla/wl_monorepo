@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>WeFund - EA Approval Successful</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: radial-gradient(circle at top left, #183442 30%, transparent 70%),
+                        radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+            border-radius: 20px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo img {
+            max-width: 300px;
+            width: 60%;
+            height: auto;
+            display: inline-block;
+            border: none;
+        }
+        .main-content {
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: left;
+        }
+        h1 {
+            margin: 0 0 15px 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+        p {
+            font-size: 14px;
+            line-height: 1.4;
+            margin: 10px 0;
+            color: #000;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .highlight {
+            background-color: #2e8ae0;
+            color: #fff;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.15em;
+        }
+        .info-block {
+            margin: 20px 0;
+            color: #000;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: left;
+        }
+        a.link {
+            color: #2E8AE0;
+            text-decoration: none;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #bbb;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .socials {
+            margin-bottom: 10px;
+        }
+        .socials a {
+            margin: 0 5px;
+            display: inline-block;
+        }
+        .socials img {
+            height: 32px;
+            width: 32px;
+            vertical-align: middle;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 20px; }
+            .main-content { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Logo Section -->
+        <div class="logo">
+            <img src="https://framerusercontent.com/images/YQ3hotbZLJJyETtNwdFTeG3QhA.png" alt="WeFund Logo" />
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Congratulations {{ client_name }}!</h1>
+
+            <p>Your Expert Advisor for MT5 Account <strong>{{ mt5_account_id }}</strong> has been <strong>approved</strong>.</p>
+
+            <p style="font-weight: bold; margin-top: 20px;">
+                Uploaded EA: {{ filename_only }}
+            </p>
+
+            <p>Thank you for your submission. You may now proceed with utilizing your Expert Advisor with confidence.</p>
+
+            <div class="info-block">
+                If you have any questions or need further assistance, please contact us via live chat
+                <a href="https://support.we-fund.com" class="link" target="_blank">here</a>.
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+                </a>
+                <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+                </a>
+                <a href="https://x.com/wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+                </a>
+            </div>
+            &copy; {{ now.year }} WeFund. All rights reserved.
+        </div>
+
+    </div>
+</body>
+</html>

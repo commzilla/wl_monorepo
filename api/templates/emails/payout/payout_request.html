@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WeFund Email</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: radial-gradient(circle at top left, #183442 30%, transparent 70%),
+                        radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+            border-radius: 20px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo img {
+            max-width: 300px;
+            width: 60%;
+            height: auto;
+            display: inline-block;
+            border: none;
+        }
+        .main-content {
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        h1, h2 {
+            margin: 0 0 12px 0;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: left;
+            color: #000;
+            line-height: 1.15;
+        }
+        p {
+            margin: 0 0 10px 0;
+            font-size: 11pt;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.15;
+            color: #000;
+            text-align: left;
+            orphans: 2;
+            widows: 2;
+        }
+        .info-block {
+            margin-bottom: 20px;
+        }
+        table.summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0 18px 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            color: #000;
+        }
+        table.summary-table th, table.summary-table td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        table.summary-table th {
+            background: #eee;
+            width: 180px;
+        }
+        table.summary-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #bbb;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .socials a {
+            margin: 0 5px;
+            display: inline-block;
+        }
+        .socials img {
+            height: 32px;
+            width: 32px;
+            vertical-align: middle;
+        }
+        @media (max-width: 650px) {
+            .container {
+                padding: 10px;
+            }
+            .main-content {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="logo">
+            <img src="https://framerusercontent.com/images/YQ3hotbZLJJyETtNwdFTeG3QhA.png" alt="WeFund Logo" />
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="main-content">
+            <h1><strong>Hi {{ trader_name }},</strong></h1>
+            <h2><strong>Payout Request - Processing</strong></h2>
+
+            <div class="highlight">
+                Your payout request of <strong>{{ net_payout }}</strong> (Account ID: {{ account_id }}) is currently <strong>Processing</strong>.
+            </div>
+
+            <table class="summary-table">
+                <tr>
+                    <th>Account ID</th>
+                    <td>{{ account_id }}</td>
+                </tr>
+                <tr>
+                    <th>Account Size</th>
+                    <td>{{ account_size }}</td>
+                </tr>
+                <tr>
+                    <th>Gross Profit</th>
+                    <td>{{ gross_profit }}</td>
+                </tr>
+                <tr>
+                    <th>Profit Share (%)</th>
+                    <td>{{ profit_share_pct }}</td>
+                </tr>
+                <tr>
+                    <th>Management Fee</th>
+                    <td>{{ management_fee }}</td>
+                </tr>
+                <tr>
+                    <th>Net Payout</th>
+                    <td>{{ net_payout }}</td>
+                </tr>
+                <tr>
+                    <th>Payout ID</th>
+                    <td>{{ payout_id }}</td>
+                </tr>
+                <tr>
+                    <th>Requested At</th>
+                    <td>{{ requested_at }}</td>
+                </tr>
+            </table>
+
+            <p>Our administrative team will process the payment, which typically takes up to <strong>72 business hours</strong>. Once approved, your funds will be sent to your Rise account, where you can choose the desired withdrawal method. <strong>It is mandatory to stop trading while your payout is in review.</strong></p>
+
+            <p>Note: When a withdrawal is approved, the account balance will reset automatically to the starting balance.</p>
+
+            
+            <p>We appreciate your trust in our services and are committed to ensuring a seamless and secure experience for your financial transactions.</p>
+            
+            <p>If you have any questions, please feel free to contact us via live chat <a href="https://help.we-fund.com" style="color:#2E8AE0;" target="_blank">here</a> or email us at: <a href="mailto:support@we-fund.com" style="color:#2E8AE0;">support@we-fund.com</a>.</p>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+                </a>
+                <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+                </a>
+                <a href="https://x.com/wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+                </a>
+            </div>
+            &copy; {{ now.year }} WeFund. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

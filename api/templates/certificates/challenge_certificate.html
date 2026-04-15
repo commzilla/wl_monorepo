@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WeFund | Your Challenge Passed Certificate</title>
+  <style>
+    body {
+      background-color: #000;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 40px;
+      background: radial-gradient(circle at top left, #183442 30%, transparent 70%), 
+                  radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+      border-radius: 20px;
+    }
+    .logo {
+      text-align: center;
+    }
+    .logo img {
+      height: 120px;
+      width: auto;
+      margin-bottom: 30px;
+    }
+    .main-content {
+      background: #fff;
+      color: #000;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    h2 {
+      color: #2E8AE0;
+      margin-top: 0;
+    }
+    .highlight {
+      background: linear-gradient(to right, #2DE2FB, #2E8AE0);
+      border-radius: 10px;
+      color: #fff;
+      padding: 12px;
+      margin: 20px 0;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .certificate-img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 18px;
+      margin: 5px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #fff;
+    }
+    .btn-blue {
+      background: #2E8AE0;
+    }
+    .btn-green {
+      background: #28a745;
+    }
+    .footer {
+      text-align: center;
+      color: #bbb;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+    .socials a {
+      margin: 0 5px;
+    }
+    .socials img {
+      height: 32px;
+      width: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="logo">
+      <img src="https://framerusercontent.com/images/TLmG1D7JDrVZ3B3rGEJealXM4s.png" alt="WeFund Logo" />
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h2>Congratulations {{ full_name }}!</h2>
+      <p>You have successfully passed your challenge and earned a certificate:</p>
+      <div class="highlight">{{ certificate.title }}</div>
+
+      {% if account_size %}
+        <p><b>Account Size:</b> ${{ account_size }} {{ currency }}</p>
+      {% endif %}
+
+      {% if certificate.image_url %}
+        <img class="certificate-img" src="{{ certificate.image_url }}" alt="Certificate Preview">
+      {% endif %}
+
+      <div style="margin-top:20px;">
+        {% if certificate.pdf_url %}
+          <a href="{{ certificate.pdf_url }}" class="button btn-blue" target="_blank">Download PDF</a>
+        {% endif %}
+        {% if certificate.image_url %}
+          <a href="{{ certificate.image_url }}" class="button btn-green" target="_blank">View Image</a>
+        {% endif %}
+      </div>
+
+      <p style="margin-top:25px; font-size:12px; color:#555;">
+        Issued on: {{ certificate.issued_date|date:"F d, Y" }}
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="socials" style="margin-bottom:10px;">
+        <a href="https://www.facebook.com/profile.php?...id=61570505740670" target="_blank">
+          <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+        </a>
+        <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+          <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+        </a>
+        <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+          <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+        </a>
+        <a href="https://x.com/wefundofficial" target="_blank">
+          <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+        </a>
+      </div>
+      &copy; {{ now.year }} WeFund. All rights reserved.
+    </div>
+
+  </div>
+</body>
+</html>

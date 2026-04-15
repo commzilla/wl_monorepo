@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WeFund - Payout Extended Review</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: radial-gradient(circle at top left, #183442 30%, transparent 70%),
+                        radial-gradient(circle at bottom right, #183442 30%, transparent 70%);
+            border-radius: 20px;
+        }
+        .logo {
+            text-align: center;
+        }
+        .logo img {
+            max-width: 300px;
+            width: 60%;
+            height: auto;
+            display: inline-block;
+        }
+        .main-content {
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 30px 0;
+        }
+        h1, h2 {
+            text-align: center;
+            margin: 0 0 12px 0;
+        }
+        .highlight {
+            color: #218be0;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.15em;
+        }
+        .info-block {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0 18px 0;
+        }
+        .summary-table th, .summary-table td {
+            text-align: left;
+            padding: 8px;
+        }
+        .summary-table th {
+            background: #eee;
+            width: 160px;
+        }
+        .summary-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        a.link {
+            color: #2E8AE0;
+            text-decoration: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            color: #bbb;
+            font-size: 13px;
+        }
+        .socials a {
+            margin: 0 5px;
+        }
+        .socials img {
+            height: 32px;
+            width: 32px;
+            vertical-align: middle;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 10px; }
+            .main-content { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="logo">
+            <img src="https://framerusercontent.com/images/YQ3hotbZLJJyETtNwdFTeG3QhA.png" alt="WeFund Logo" />
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="main-content">
+            <h1><strong>Hi {{ full_name }},</strong></h1>
+            <h2><strong>Payout Request - Extended Review</strong></h2>
+
+            <div class="highlight">
+                Your payout request of <strong>${{ amount }}</strong> has been placed under 
+                <strong>extended review</strong> for additional verification.
+            </div>
+
+            <table class="summary-table">
+                <tr>
+                    <th>Amount</th>
+                    <td>${{ amount }}</td>
+                </tr>
+                <tr>
+                    <th>Extended For</th>
+                    <td>{{ days }} Business Days</td>
+                </tr>
+                <tr>
+                    <th>Expected Completion</th>
+                    <td>{{ extended_until }}</td>
+                </tr>
+            </table>
+
+            <div class="info-block">
+                During this period, our compliance and risk teams are reviewing your payout to ensure
+                the transaction meets all internal policies and trading rules.
+            </div>
+
+            <div class="info-block">
+                You can track the real-time status of your payout directly from your
+                <a href="{{ dashboard_url }}" class="link" target="_blank">WeFund Dashboard</a>.
+            </div>
+
+            <div class="info-block">
+                Thank you for your patience and understanding — our goal is to ensure
+                a smooth and transparent payout process.
+            </div>
+
+            <div class="info-block">
+                We appreciate your trust in our services and are committed to ensuring a seamless and secure experience for your financial transactions.
+            </div>
+
+            <div class="info-block">
+                If you have any questions about your account or need assistance, feel free to reach out via live chat
+                <a href="https://support.we-fund.com" class="link" target="_blank">here</a>.
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <div class="socials" style="margin-bottom:10px;">
+                <a href="https://www.facebook.com/profile.php?id=61570505740670" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/facebook@2x.png" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/wefundofficial/" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/instagram@2x.png" alt="Instagram" />
+                </a>
+                <a href="https://www.youtube.com/@Wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/youtube@2x.png" alt="YouTube" />
+                </a>
+                <a href="https://x.com/wefundofficial" target="_blank">
+                    <img src="https://app-rsrc.getbee.io/public/resources/social-networks-icon-sets/circle-color/twitter@2x.png" alt="Twitter" />
+                </a>
+            </div>
+            &copy; {{ now.year }} WeFund. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
