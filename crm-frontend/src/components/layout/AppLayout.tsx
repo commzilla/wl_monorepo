@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import AppSidebar, { SidebarContent } from './AppSidebar';
 import { Toaster } from '@/components/ui/toaster';
@@ -8,13 +8,9 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { Moon, Sun, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AdminAIWidget } from '@/components/admin-ai/AdminAIWidget';
-import { useAuth } from '@/contexts/AuthContext';
-import WelcomeScreen from '@/components/welcome/WelcomeScreen';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import wefundLogoLight from '@/assets/wefund-logo-light.png';
-
-const WELCOME_2_KEY = 'wefund_crm_2_welcome_seen';
 
 interface AppLayoutProps {
   children?: React.ReactNode;
@@ -22,42 +18,8 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const { theme, toggleTheme } = useTheme();
-  const { user } = useAuth();
-  const [showWelcome, setShowWelcome] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (user?.id) {
-      const key = `${WELCOME_2_KEY}_${user.id}`;
-      if (!localStorage.getItem(key)) {
-        setShowWelcome(true);
-      }
-    }
-  }, [user?.id]);
-
-  const handleWelcomeComplete = useCallback(() => {
-    if (user?.id) {
-      localStorage.setItem(`${WELCOME_2_KEY}_${user.id}`, 'true');
-    }
-    setShowWelcome(false);
-  }, [user?.id]);
-
-  // Allow Enter key to dismiss welcome screen
-  useEffect(() => {
-    if (!showWelcome) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        handleWelcomeComplete();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showWelcome, handleWelcomeComplete]);
-
-  if (showWelcome) {
-    return <WelcomeScreen onComplete={handleWelcomeComplete} />;
-  }
 
   return (
     <div className="flex h-screen bg-background text-foreground overflow-hidden">
