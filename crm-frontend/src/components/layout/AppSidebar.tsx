@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
   FileSearch,
-  CreditCard,
   Activity,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
-  ChevronDown,
-  Clock,
   BadgePercent,
   Shield,
   Settings,
@@ -27,7 +25,6 @@ import {
   ScrollText,
   Gift,
   Receipt,
-  UserCheck,
   PackageCheck,
   BarChart3,
   Brain,
@@ -46,14 +43,13 @@ import {
   MessageSquareMore,
   Medal,
   Mail,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { useLanguage } from "@/hooks/useLanguage";
-import { useTheme } from "@/contexts/ThemeContext";
-import wefundLogoLight from "@/assets/wefund-logo-light.png";
 
 interface NavItem {
   to: string;
@@ -70,60 +66,46 @@ interface NavSection {
   items: NavItem[];
 }
 
-interface SidebarLinkProps {
+// ── Nav link ──────────────────────────────────────────────────────────────────
+const SidebarLink: React.FC<{
   to: string;
   icon: React.ElementType;
   label: string;
   collapsed: boolean;
   active: boolean;
   onNavigate?: () => void;
-}
+}> = ({ to, icon: Icon, label, collapsed, active, onNavigate }) => (
+  <Link
+    to={to}
+    onClick={onNavigate}
+    title={collapsed ? label : undefined}
+    className={cn(
+      "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
+      collapsed ? "justify-center px-2" : "",
+      active
+        ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
+        : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+    )}
+  >
+    <Icon size={18} className="flex-shrink-0" />
+    {!collapsed && <span>{label}</span>}
+  </Link>
+);
 
-interface SidebarDropdownProps {
+// ── Dropdown nav ──────────────────────────────────────────────────────────────
+const SidebarDropdown: React.FC<{
   icon: React.ElementType;
   label: string;
   collapsed: boolean;
   items: { to: string; label: string; icon: React.ElementType }[];
   activeItems: boolean;
   onNavigate?: () => void;
-}
-
-const SidebarLink: React.FC<SidebarLinkProps> = ({ to, icon: Icon, label, collapsed, active, onNavigate }) => {
-  return (
-    <Link
-      to={to}
-      onClick={onNavigate}
-      className={cn(
-        "group relative flex items-center rounded-xl px-3 py-3 text-muted-foreground transition-all duration-300 hover:text-primary hover:bg-primary/10 hover:backdrop-blur-sm border border-transparent hover:border-primary/20",
-        collapsed ? "justify-center gap-0" : "gap-3",
-        active && "bg-primary/15 text-primary border-primary/30 shadow-lg shadow-primary/10",
-      )}
-    >
-      <Icon
-        size={20}
-        className={cn(
-          "transition-all duration-300 group-hover:scale-110 flex-shrink-0",
-          active && "text-primary drop-shadow-sm",
-        )}
-      />
-      {!collapsed && (
-        <span className={cn("transition-all duration-300 font-medium", active && "text-primary")}>{label}</span>
-      )}
-      {active && !collapsed && (
-        <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-primary to-primary/50 rounded-r-full" />
-      )}
-    </Link>
-  );
-};
-
-const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ icon: Icon, label, collapsed, items, activeItems, onNavigate }) => {
+}> = ({ icon: Icon, label, collapsed, items, activeItems, onNavigate }) => {
   const [isOpen, setIsOpen] = useState(activeItems);
   const location = useLocation();
 
   React.useEffect(() => {
-    if (activeItems && !isOpen) {
-      setIsOpen(true);
-    }
+    if (activeItems) setIsOpen(true);
   }, [activeItems]);
 
   if (collapsed) {
@@ -131,20 +113,15 @@ const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ icon: Icon, label, co
       <div className="group relative">
         <div
           className={cn(
-            "flex items-center justify-center rounded-xl px-3 py-3 text-muted-foreground transition-all duration-300 hover:text-primary hover:bg-primary/10 hover:backdrop-blur-sm border border-transparent hover:border-primary/20",
-            activeItems && "bg-primary/15 text-primary border-primary/30 shadow-lg shadow-primary/10",
+            "flex items-center justify-center rounded-xl px-2 py-2.5 text-sm transition-all duration-150 cursor-pointer",
+            activeItems
+              ? "bg-sidebar-primary text-sidebar-primary-foreground"
+              : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
           )}
         >
-          <Icon
-            size={20}
-            className={cn(
-              "transition-all duration-300 group-hover:scale-110 flex-shrink-0",
-              activeItems && "text-primary drop-shadow-sm",
-            )}
-          />
+          <Icon size={18} />
         </div>
-        {/* Tooltip for collapsed state */}
-        <div className="absolute left-full ml-2 top-0 invisible group-hover:visible bg-popover border rounded-md px-2 py-1 text-sm shadow-md z-50 whitespace-nowrap">
+        <div className="absolute left-full ml-2 top-0 invisible group-hover:visible bg-popover border border-border rounded-lg px-2 py-1 text-sm shadow-lg z-50 whitespace-nowrap text-foreground">
           {label}
         </div>
       </div>
@@ -152,32 +129,23 @@ const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ icon: Icon, label, co
   }
 
   return (
-    <div className="space-y-1">
+    <div>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "group w-full relative flex items-center rounded-xl px-3 py-3 text-muted-foreground transition-all duration-300 hover:text-primary hover:bg-primary/10 hover:backdrop-blur-sm border border-transparent hover:border-primary/20 gap-3",
-          activeItems && "bg-primary/15 text-primary border-primary/30 shadow-lg shadow-primary/10",
+          "w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
+          activeItems
+            ? "bg-sidebar-primary text-sidebar-primary-foreground"
+            : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
         )}
       >
-        <Icon
-          size={20}
-          className={cn(
-            "transition-all duration-300 group-hover:scale-110 flex-shrink-0",
-            activeItems && "text-primary drop-shadow-sm",
-          )}
-        />
-        <span className={cn("transition-all duration-300 font-medium flex-1 text-left", activeItems && "text-primary")}>
-          {label}
-        </span>
-        <ChevronDown size={16} className={cn("transition-transform duration-200", isOpen && "transform rotate-180")} />
-        {activeItems && (
-          <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-primary to-primary/50 rounded-r-full" />
-        )}
+        <Icon size={18} className="flex-shrink-0" />
+        <span className="flex-1 text-left">{label}</span>
+        <ChevronDown size={14} className={cn("transition-transform duration-200", isOpen && "rotate-180")} />
       </button>
 
       {isOpen && (
-        <div className="ml-6 space-y-1">
+        <div className="ml-4 mt-1 space-y-0.5 border-l-2 border-sidebar-border pl-3">
           {items.map((item) => {
             const isActive = location.pathname === item.to;
             return (
@@ -186,23 +154,14 @@ const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ icon: Icon, label, co
                 to={item.to}
                 onClick={onNavigate}
                 className={cn(
-                  "group relative flex items-center rounded-xl px-3 py-2 text-muted-foreground transition-all duration-300 hover:text-primary hover:bg-primary/10 hover:backdrop-blur-sm border border-transparent hover:border-primary/20 gap-3 text-sm",
-                  isActive && "bg-primary/15 text-primary border-primary/30 shadow-lg shadow-primary/10",
+                  "flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs font-medium transition-all duration-150",
+                  isActive
+                    ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                 )}
               >
-                <item.icon
-                  size={16}
-                  className={cn(
-                    "transition-all duration-300 group-hover:scale-110 flex-shrink-0",
-                    isActive && "text-primary drop-shadow-sm",
-                  )}
-                />
-                <span className={cn("transition-all duration-300 font-medium", isActive && "text-primary")}>
-                  {item.label}
-                </span>
-                {isActive && (
-                  <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-primary to-primary/50 rounded-r-full" />
-                )}
+                <item.icon size={14} className="flex-shrink-0" />
+                <span>{item.label}</span>
               </Link>
             );
           })}
@@ -212,60 +171,38 @@ const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ icon: Icon, label, co
   );
 };
 
-const SidebarSectionLabel: React.FC<{ label: string; collapsed: boolean }> = ({ label, collapsed }) => {
-  if (collapsed) return null;
-
+// ── Section label ─────────────────────────────────────────────────────────────
+const SectionLabel: React.FC<{ label: string; collapsed: boolean }> = ({ label, collapsed }) => {
+  if (collapsed) return <div className="border-t border-sidebar-border my-2" />;
   return (
-    <div className="px-3 py-2 mt-4 first:mt-0">
-      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
-        {label}
-      </span>
-    </div>
+    <p className="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50 select-none">
+      {label}
+    </p>
   );
 };
 
-// Shared navigation sections hook
-function useNavSections() {
+// ── Brand name helper ─────────────────────────────────────────────────────────
+function getBrandName(): string {
+  const hostname = window.location.hostname;
+  const parts = hostname.split(".");
+  if (parts.length >= 2) {
+    const raw = parts[parts.length - 2];
+    return raw.charAt(0).toUpperCase() + raw.slice(1);
+  }
+  return "Platform";
+}
+
+function getBrandInitials(name: string): string {
+  const words = name.replace(/([a-z])([A-Z])/g, "$1 $2").split(/\s+/);
+  if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+  return name.slice(0, 2).toUpperCase();
+}
+
+// ── Nav sections data ─────────────────────────────────────────────────────────
+function useNavSections(): NavSection[] {
   const { t } = useLanguage();
 
-  const riskDropdownItems = [
-    { to: "/stoploss-history", label: "Stop Loss History", icon: Clock },
-    { to: "/ip-analysis", label: "IP Analysis", icon: Network },
-    { to: "/top-earning-traders", label: "Top Earning Traders", icon: TrendingUp },
-    { to: "/copy-trading", label: "Copy Trading", icon: Copy },
-    { to: "/hedging", label: "Hedging Detection", icon: ArrowLeftRight },
-    { to: "/admin/expert-advisors", label: "EA Approval", icon: Bot },
-    { to: "/payout-ai-analysis", label: "AI Risk", icon: Brain },
-    { to: "/ai-learning", label: "AI Learning Center", icon: BookOpen },
-  ];
-
-  const wecoinsDropdownItems = [
-    { to: "/wecoins/tasks", label: "Tasks", icon: CheckSquare },
-    { to: "/wecoins/auto-rules", label: "Auto Rules", icon: Rocket },
-    { to: "/wecoins/submissions", label: "Submissions", icon: ScrollText },
-    { to: "/wecoins/redemption", label: "Redemption", icon: PackageCheck },
-    { to: "/wecoins/redeem-items", label: "Redeem Items", icon: Gift },
-    { to: "/wecoins/ledger-book", label: "Ledger Book", icon: Receipt },
-  ];
-
-  const competitionsDropdownItems = [
-    { to: "/competitions/campaign", label: "Campaign", icon: Megaphone },
-    { to: "/competitions/registrations", label: "Registrations", icon: Users },
-    { to: "/competitions/leaderboard", label: "Leaderboard", icon: Trophy },
-  ];
-
-  const analyticsDropdownItems = [
-    { to: "/analytics/challenge-wise-payouts", label: "Challenge Wise Payouts", icon: BarChart3 },
-    { to: "/analytics/account-size-wise-payouts", label: "Account Size Wise Payouts", icon: DollarSign },
-    { to: "/analytics/country-wise-payouts", label: "Country Wise Payouts", icon: Network },
-    { to: "/analytics/unprofitable-countries", label: "Unprofitable Countries", icon: TrendingUp },
-    { to: "/analytics/risk-core-metrics", label: "Risk Core Metrics", icon: Activity },
-    { to: "/analytics/trends", label: "Trends Analytics", icon: TrendingUp },
-    { to: "/analytics/trader-behavior", label: "Trader Behavior", icon: Users },
-    { to: "/analytics/trader-journey", label: "Trader Journey", icon: TrendingUp },
-  ];
-
-  const sections: NavSection[] = [
+  return [
     {
       items: [
         { to: "/", label: t("dashboard"), icon: LayoutDashboard, roles: ["admin", "support", "risk", "discord_manager", "content_creator"], permissions: ["dashboard.view"] },
@@ -296,13 +233,19 @@ function useNavSections() {
       items: [
         { to: "/kyc", label: t("kyc"), icon: FileSearch, roles: ["admin", "support", "risk"], permissions: ["kyc.view"] },
         {
-          to: "#risk",
-          label: "Risk",
-          icon: Shield,
-          roles: ["admin", "support", "risk"],
-          permissions: ["risk.view_dashboard"],
+          to: "#risk", label: "Risk", icon: Shield,
+          roles: ["admin", "support", "risk"], permissions: ["risk.view_dashboard"],
           isDropdown: true,
-          dropdownItems: riskDropdownItems,
+          dropdownItems: [
+            { to: "/stoploss-history", label: "Stop Loss History", icon: Clock },
+            { to: "/ip-analysis", label: "IP Analysis", icon: Network },
+            { to: "/top-earning-traders", label: "Top Earning Traders", icon: TrendingUp },
+            { to: "/copy-trading", label: "Copy Trading", icon: Copy },
+            { to: "/hedging", label: "Hedging Detection", icon: ArrowLeftRight },
+            { to: "/admin/expert-advisors", label: "EA Approval", icon: Bot },
+            { to: "/payout-ai-analysis", label: "AI Risk", icon: Brain },
+            { to: "/ai-learning", label: "AI Learning Center", icon: BookOpen },
+          ],
         },
       ],
     },
@@ -310,22 +253,27 @@ function useNavSections() {
       label: "Engagement",
       items: [
         {
-          to: "#wecoins",
-          label: "WeCoins",
-          icon: Coins,
-          roles: ["admin", "support", "risk", "discord_manager"],
-          permissions: ["wecoins.view_tasks"],
+          to: "#wecoins", label: "WeCoins", icon: Coins,
+          roles: ["admin", "support", "risk", "discord_manager"], permissions: ["wecoins.view_tasks"],
           isDropdown: true,
-          dropdownItems: wecoinsDropdownItems,
+          dropdownItems: [
+            { to: "/wecoins/tasks", label: "Tasks", icon: CheckSquare },
+            { to: "/wecoins/auto-rules", label: "Auto Rules", icon: Rocket },
+            { to: "/wecoins/submissions", label: "Submissions", icon: ScrollText },
+            { to: "/wecoins/redemption", label: "Redemption", icon: PackageCheck },
+            { to: "/wecoins/redeem-items", label: "Redeem Items", icon: Gift },
+            { to: "/wecoins/ledger-book", label: "Ledger Book", icon: Receipt },
+          ],
         },
         {
-          to: "#competitions",
-          label: "Competitions",
-          icon: Trophy,
-          roles: ["admin", "support", "risk"],
-          permissions: ["competitions.view"],
+          to: "#competitions", label: "Competitions", icon: Trophy,
+          roles: ["admin", "support", "risk"], permissions: ["competitions.view"],
           isDropdown: true,
-          dropdownItems: competitionsDropdownItems,
+          dropdownItems: [
+            { to: "/competitions/campaign", label: "Campaign", icon: Megaphone },
+            { to: "/competitions/registrations", label: "Registrations", icon: Users },
+            { to: "/competitions/leaderboard", label: "Leaderboard", icon: Trophy },
+          ],
         },
       ],
     },
@@ -343,13 +291,19 @@ function useNavSections() {
       label: "Admin",
       items: [
         {
-          to: "#analytics",
-          label: "Analytics",
-          icon: BarChart3,
-          roles: ["admin"],
-          permissions: ["analytics.view_challenge_payouts"],
+          to: "#analytics", label: "Analytics", icon: BarChart3,
+          roles: ["admin"], permissions: ["analytics.view_challenge_payouts"],
           isDropdown: true,
-          dropdownItems: analyticsDropdownItems,
+          dropdownItems: [
+            { to: "/analytics/challenge-wise-payouts", label: "Challenge Payouts", icon: BarChart3 },
+            { to: "/analytics/account-size-wise-payouts", label: "Account Size Payouts", icon: DollarSign },
+            { to: "/analytics/country-wise-payouts", label: "Country Payouts", icon: Network },
+            { to: "/analytics/unprofitable-countries", label: "Unprofitable Countries", icon: TrendingUp },
+            { to: "/analytics/risk-core-metrics", label: "Risk Metrics", icon: Activity },
+            { to: "/analytics/trends", label: "Trends", icon: TrendingUp },
+            { to: "/analytics/trader-behavior", label: "Trader Behavior", icon: Users },
+            { to: "/analytics/trader-journey", label: "Trader Journey", icon: TrendingUp },
+          ],
         },
         { to: "/leaderboard-management", label: "Leaderboard", icon: Medal, roles: ["admin"], permissions: ["leaderboard.manage"] },
         { to: "/trading-reports", label: "Trading Reports", icon: ClipboardList, roles: ["admin", "support", "discord_manager"], permissions: ["trading_reports.view"] },
@@ -366,79 +320,43 @@ function useNavSections() {
       ],
     },
   ];
-
-  return sections;
 }
 
-// Exported SidebarContent — used by both AppSidebar (desktop) and AppLayout (mobile Sheet)
-export const SidebarContent: React.FC<{ collapsed?: boolean; onNavigate?: () => void }> = ({ collapsed = false, onNavigate }) => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+// ── Shared sidebar content ────────────────────────────────────────────────────
+export const SidebarContent: React.FC<{ collapsed?: boolean; onNavigate?: () => void }> = ({
+  collapsed = false,
+  onNavigate,
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { signOut, profile, user, isAdmin, isSupport, isRisk, isDiscordManager, isContentCreator, hasAnyPermission } = useAuth();
-  const { theme } = useTheme();
   const sections = useNavSections();
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const brandName = getBrandName();
+  const brandInitials = getBrandInitials(brandName);
 
   const hasAccess = (item: { roles: string[]; permissions?: string[] }) => {
-    // Check RBAC permissions first
-    if (item.permissions && item.permissions.length > 0) {
-      if (hasAnyPermission(item.permissions)) return true;
-    }
-    // Fall back to legacy roles
-    const roleChecks: Record<string, boolean> = {
-      admin: isAdmin,
-      support: isSupport,
-      risk: isRisk,
-      discord_manager: isDiscordManager,
-      content_creator: isContentCreator,
-    };
-    return item.roles.some((role) => roleChecks[role]);
-  };
-
-  const handleLogout = () => {
-    signOut();
-  };
-
-  const handleUserCardClick = () => {
-    navigate("/settings");
-    onNavigate?.();
-  };
-
-  const getUserDisplayName = () => {
-    if (profile?.first_name && profile?.last_name) {
-      return `${profile.first_name} ${profile.last_name}`;
-    }
-    if (profile?.first_name) {
-      return profile.first_name;
-    }
-    if (user?.email) {
-      return user.email.split("@")[0];
-    }
-    return "User";
+    if (item.permissions?.length && hasAnyPermission(item.permissions)) return true;
+    const roleMap: Record<string, boolean> = { admin: isAdmin, support: isSupport, risk: isRisk, discord_manager: isDiscordManager, content_creator: isContentCreator };
+    return item.roles.some((r) => roleMap[r]);
   };
 
   const getUserInitial = () => {
-    if (profile?.first_name) {
-      return profile.first_name[0].toUpperCase();
-    }
-    if (user?.email) {
-      return user.email[0].toUpperCase();
-    }
+    if (profile?.first_name) return profile.first_name[0].toUpperCase();
+    if (user?.email) return user.email[0].toUpperCase();
     return "U";
   };
 
-  const renderNavItem = (item: NavItem) => {
-    if (!hasAccess(item)) return null;
+  const getUserName = () => {
+    if (profile?.first_name && profile?.last_name) return `${profile.first_name} ${profile.last_name}`;
+    if (profile?.first_name) return profile.first_name;
+    if (user?.email) return user.email.split("@")[0];
+    return "User";
+  };
 
+  const renderItem = (item: NavItem) => {
+    if (!hasAccess(item)) return null;
     if (item.isDropdown && item.dropdownItems) {
-      const isActiveDropdown = item.dropdownItems.some((dropItem) => location.pathname === dropItem.to);
+      const isActiveDropdown = item.dropdownItems.some((d) => location.pathname === d.to);
       return (
         <SidebarDropdown
           key={item.to}
@@ -451,7 +369,6 @@ export const SidebarContent: React.FC<{ collapsed?: boolean; onNavigate?: () => 
         />
       );
     }
-
     return (
       <SidebarLink
         key={item.to}
@@ -465,70 +382,34 @@ export const SidebarContent: React.FC<{ collapsed?: boolean; onNavigate?: () => 
     );
   };
 
-  const sectionHasVisibleItems = (section: NavSection) => {
-    return section.items.some((item) => hasAccess(item));
-  };
-
   return (
-    <div className="flex flex-col h-full">
-      {/* Header */}
-      <div
-        className={cn(
-          "flex items-center h-20 border-b border-border/30 bg-gradient-to-r from-card/60 to-card/40 transition-all duration-300 relative flex-shrink-0",
-          collapsed ? "px-2 justify-center" : "px-6 justify-between",
-        )}
-      >
-        <div className="flex-1 flex items-center relative">
-          <div
-            className={cn(
-              "relative transition-all duration-300 ease-in-out",
-              collapsed
-                ? "opacity-0 scale-95 -translate-x-4 pointer-events-none"
-                : "opacity-100 scale-100 translate-x-0",
-            )}
-          >
-            <img
-              src="/wefund-logo.svg"
-              alt="WeFund Logo Dark"
-              className={cn(
-                "h-7 w-auto drop-shadow-lg transition-opacity duration-300 ease-in-out",
-                theme === "dark" ? "opacity-100" : "opacity-0 absolute inset-0",
-              )}
-            />
-            <img
-              src={wefundLogoLight}
-              alt="WeFund Logo Light"
-              className={cn(
-                "h-7 w-auto drop-shadow-lg transition-opacity duration-300 ease-in-out",
-                theme === "light" ? "opacity-100" : "opacity-0 absolute inset-0",
-              )}
-            />
-          </div>
-
-          <img
-            src="/wefund-icon.svg"
-            alt="WeFund Icon"
-            className={cn(
-              "h-6 w-6 transition-all duration-300 ease-in-out absolute left-1/2 -translate-x-1/2",
-              collapsed ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none",
-            )}
-          />
+    <div className="flex flex-col h-full bg-sidebar">
+      {/* Brand header */}
+      <div className={cn("flex items-center gap-3 border-b border-sidebar-border flex-shrink-0", collapsed ? "px-3 py-4 justify-center" : "px-5 py-4")}>
+        <div className="w-9 h-9 rounded-xl bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground text-sm font-bold flex-shrink-0 shadow-sm">
+          {brandInitials}
         </div>
+        {!collapsed && (
+          <span className="font-semibold text-foreground text-sm tracking-tight">{brandName}</span>
+        )}
       </div>
 
       {/* Navigation */}
-      <ScrollArea className="flex-1 p-4">
-        <div className="space-y-1">
-          {sections.map((section, sectionIndex) => {
-            if (!sectionHasVisibleItems(section)) return null;
-
+      <ScrollArea className="flex-1 px-3 py-3">
+        {!collapsed && (
+          <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50 select-none">
+            Control Panel
+          </p>
+        )}
+        <div className="space-y-0.5">
+          {sections.map((section, idx) => {
+            const visibleItems = section.items.filter(hasAccess);
+            if (!visibleItems.length) return null;
             return (
-              <div key={section.label || `section-${sectionIndex}`}>
-                {section.label && (
-                  <SidebarSectionLabel label={section.label} collapsed={collapsed} />
-                )}
-                <div className="space-y-1">
-                  {section.items.map(renderNavItem)}
+              <div key={section.label || `s-${idx}`}>
+                {section.label && <SectionLabel label={section.label} collapsed={collapsed} />}
+                <div className="space-y-0.5">
+                  {section.items.map(renderItem)}
                 </div>
               </div>
             );
@@ -536,116 +417,54 @@ export const SidebarContent: React.FC<{ collapsed?: boolean; onNavigate?: () => 
         </div>
       </ScrollArea>
 
-      {/* Footer */}
-      <div
-        className={cn(
-          "border-t border-border/30 bg-gradient-to-r from-card/60 to-card/40 transition-all duration-300 flex-shrink-0",
-          collapsed ? "p-2" : "p-4",
-        )}
-      >
-        {/* Clock Display */}
-        <div
-          className={cn(
-            "flex items-center justify-center gap-2 mb-3 py-2 rounded-lg bg-muted/50 border border-border/30",
-            collapsed ? "flex-col gap-1" : "",
-          )}
-        >
-          <Clock size={collapsed ? 14 : 16} className="text-primary" />
-          <div className={cn("font-mono font-medium", collapsed ? "text-xs" : "text-sm")}>
-            {currentTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Helsinki' })}
+      {/* User footer */}
+      <div className={cn("border-t border-sidebar-border flex-shrink-0", collapsed ? "p-3" : "p-4")}>
+        <div className={cn("flex items-center gap-3", collapsed && "justify-center")}>
+          <div
+            onClick={() => { navigate("/settings"); onNavigate?.(); }}
+            className="w-8 h-8 rounded-full bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground text-xs font-bold cursor-pointer hover:opacity-90 transition-opacity flex-shrink-0"
+          >
+            {getUserInitial()}
           </div>
           {!collapsed && (
-            <div className="text-xs text-muted-foreground">
-              {currentTime.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', timeZone: 'Europe/Helsinki' })} (MT5)
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-foreground truncate">{getUserName()}</p>
+              <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
             </div>
           )}
-        </div>
-
-        <div
-          className={cn(
-            "flex items-center rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 transition-all duration-300",
-            collapsed ? "flex-col space-y-2 p-2" : "p-3",
-          )}
-        >
-          <div
-            onClick={handleUserCardClick}
-            className={cn(
-              "flex items-center cursor-pointer hover:bg-primary/5 rounded-lg transition-all duration-300",
-              collapsed ? "justify-center p-1" : "flex-1 p-1 -m-1",
-            )}
-            aria-label="Go to profile settings"
-          >
-            <div
-              className={cn(
-                "rounded-xl bg-gradient-wefund flex items-center justify-center text-white font-bold shadow-lg shadow-primary/20 transition-transform duration-300 hover:scale-105",
-                collapsed ? "w-8 h-8 text-xs" : "w-10 h-10",
-              )}
-            >
-              {getUserInitial()}
-            </div>
-            {!collapsed && (
-              <div className="ml-3 flex-1">
-                <p className="text-sm font-semibold text-foreground">{getUserDisplayName()}</p>
-                <p className="text-xs text-muted-foreground/80">{user?.email || "user@example.com"}</p>
-              </div>
-            )}
-          </div>
-
           <Button
             variant="ghost"
             size="icon"
-            onClick={handleLogout}
-            className={cn(
-              "text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-all duration-300",
-              collapsed ? "w-8 h-8 ml-0" : "ml-2",
-            )}
-            aria-label="Log out"
+            onClick={() => signOut()}
+            className="w-8 h-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg flex-shrink-0"
+            title="Log out"
           >
-            <LogOut size={collapsed ? 14 : 16} />
+            <LogOut size={15} />
           </Button>
-        </div>
-
-        <div className={cn("mt-2 text-center text-xs text-muted-foreground/60 font-mono", collapsed && "text-[10px]")}>
-          CRM v2.0
         </div>
       </div>
     </div>
   );
 };
 
-// Desktop sidebar wrapper — uses SidebarContent inside the <aside> shell
+// ── Desktop sidebar wrapper ───────────────────────────────────────────────────
 const AppSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-
-  React.useEffect(() => {
-    const darkLogo = new Image();
-    const lightLogo = new Image();
-    const iconLogo = new Image();
-    darkLogo.src = "/wefund-logo.svg";
-    lightLogo.src = wefundLogoLight;
-    iconLogo.src = "/wefund-icon.svg";
-  }, []);
 
   return (
     <div
       className={cn(
-        "flex flex-col h-screen bg-card/40 backdrop-blur-xl border-r border-border/20 transition-all duration-300 relative z-20 shadow-2xl",
-        collapsed ? "w-20" : "w-72",
+        "relative flex flex-col h-screen border-r border-sidebar-border transition-all duration-300 z-20 shadow-[1px_0_0_0_hsl(var(--sidebar-border))]",
+        collapsed ? "w-[60px]" : "w-[220px]",
       )}
     >
       <SidebarContent collapsed={collapsed} />
-      {/* Toggle Button overlaid at top-right of sidebar */}
-      <Button
-        variant="ghost"
-        size="icon"
+      <button
         onClick={() => setCollapsed(!collapsed)}
-        className={cn(
-          "absolute text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-xl border border-transparent hover:border-primary/20 transition-all duration-300",
-          collapsed ? "top-6 left-1/2 -translate-x-1/2 w-8 h-8" : "top-6 right-4",
-        )}
+        className="absolute -right-3 top-16 w-6 h-6 rounded-full bg-card border border-border shadow-sm flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors z-30"
       >
-        {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={18} />}
-      </Button>
+        {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
+      </button>
     </div>
   );
 };
