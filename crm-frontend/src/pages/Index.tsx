@@ -4,26 +4,56 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { dashboardService, type DashboardData } from '@/services/dashboardService';
 import { useToast } from '@/hooks/use-toast';
-import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import {
   Users, TrendingUp, LayoutGrid, Activity, DollarSign,
   ShoppingBag, Award, FileSearch, BadgePercent, MessageCircle,
   Bell, Shield, Network, Cog, Settings, Tag, Ticket, ArrowUpRight,
 } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ChallengesTab from '@/components/dashboard/ChallengesTab';
 import PayoutsTab from '@/components/dashboard/PayoutsTab';
 import OrdersTab from '@/components/dashboard/OrdersTab';
 import TradesTab from '@/components/dashboard/TradesTab';
 
-// ── Colour constants ──────────────────────────────────────────────────────────
-const COLOR_BAR_DEFAULT = '#c4b5fd';
+// ── Colours ────────────────────────────────────────────────────────────────────
+const COLOR_BAR_USER      = '#ddd6fe';
+const COLOR_BAR_DEFAULT   = '#c4b5fd';
 const COLOR_BAR_HIGHLIGHT = '#7c3aed';
-const COLOR_BAR_USER = '#ddd6fe';
 
-// ── Tooltip ───────────────────────────────────────────────────────────────────
+// ── Section header ─────────────────────────────────────────────────────────────
+const SectionHeader: React.FC<{
+  icon: React.ElementType;
+  title: string;
+  subtitle?: string;
+  iconBg?: string;
+  iconColor?: string;
+}> = ({ icon: Icon, title, subtitle, iconBg = 'bg-primary/10', iconColor = 'text-primary' }) => (
+  <div className="flex items-center gap-3 mb-5">
+    <div className={`w-9 h-9 rounded-xl ${iconBg} flex items-center justify-center flex-shrink-0`}>
+      <Icon className={`w-4.5 h-4.5 ${iconColor}`} size={18} />
+    </div>
+    <div>
+      <h2 className="font-semibold text-foreground text-base leading-tight">{title}</h2>
+      {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
+    </div>
+  </div>
+);
+
+// ── Divider ────────────────────────────────────────────────────────────────────
+const Divider: React.FC<{ label: string; icon: React.ElementType; sublabel?: string }> = ({ label, icon: Icon, sublabel }) => (
+  <div className="flex items-center gap-3 py-1">
+    <div className="flex items-center gap-2">
+      <Icon size={14} className="text-muted-foreground/60 flex-shrink-0" />
+      <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/50 whitespace-nowrap">
+        {label}
+      </span>
+      {sublabel && <span className="text-xs text-muted-foreground/40">— {sublabel}</span>}
+    </div>
+    <div className="flex-1 h-px bg-border" />
+  </div>
+);
+
+// ── Chart helpers ──────────────────────────────────────────────────────────────
 const ChartTooltip: React.FC<{ active?: boolean; payload?: { value: number }[]; label?: string; prefix?: string }> = ({
   active, payload, label, prefix = '',
 }) => {
@@ -36,55 +66,47 @@ const ChartTooltip: React.FC<{ active?: boolean; payload?: { value: number }[]; 
   );
 };
 
-// ── Stat badge ────────────────────────────────────────────────────────────────
 const StatBadge: React.FC<{ value: number; positive?: boolean }> = ({ value, positive = true }) => (
   <span className={`inline-flex items-center gap-0.5 text-xs font-medium px-2 py-0.5 rounded-full ${positive ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-500'}`}>
-    <ArrowUpRight size={11} className={positive ? '' : 'rotate-180'} />
+    <ArrowUpRight size={10} className={positive ? '' : 'rotate-180'} />
     {Math.abs(value)}%
   </span>
 );
 
-// ── Data helpers ──────────────────────────────────────────────────────────────
-const WEEK_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-
 function buildUsersChartData(total: number) {
   const factors = [0.72, 0.84, 0.91, 1.18, 1.32, 1.08, 0.95];
-  const weeklyAvg = Math.max(1, Math.round(total / 52));
-  return WEEK_LABELS.map((name, i) => ({ name, value: Math.round(weeklyAvg * factors[i]) }));
+  const labels  = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const weekly  = Math.max(1, Math.round(total / 52));
+  return labels.map((name, i) => ({ name, value: Math.round(weekly * factors[i]) }));
 }
 
-function buildRevenueChartData(totalAmount: number) {
+function buildRevenueChartData(total: number) {
   const factors = [0.38, 0.57, 0.65, 1.0, 0.60, 0.20, 0.31];
-  const base = Math.max(1, Math.round(totalAmount / factors.reduce((a, b) => a + b, 0)));
-  return MONTH_LABELS.map((name, i) => ({
-    name,
-    value: Math.round(base * factors[i]),
-    highlight: i === 3,
-  }));
+  const labels  = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+  const base    = Math.max(1, Math.round(total / factors.reduce((a, b) => a + b, 0)));
+  return labels.map((name, i) => ({ name, value: Math.round(base * factors[i]), highlight: i === 3 }));
 }
 
-function formatRevenue(v: number): string {
-  if (v >= 1000) return `$${(v / 1000).toFixed(1)}k`;
-  return `$${v}`;
+function formatRevenue(v: number) {
+  return v >= 1000 ? `$${(v / 1000).toFixed(1)}k` : `$${v}`;
 }
 
-// ── Status badge ──────────────────────────────────────────────────────────────
-function statusColor(status: string): string {
-  if (status.toLowerCase().includes('progress')) return 'bg-blue-50 text-blue-600';
-  if (status.toLowerCase().includes('passed') || status.toLowerCase().includes('live')) return 'bg-green-50 text-green-600';
-  if (status.toLowerCase().includes('failed')) return 'bg-red-50 text-red-500';
+function statusColor(status: string) {
+  const s = status.toLowerCase();
+  if (s.includes('progress'))         return 'bg-blue-50 text-blue-600';
+  if (s.includes('passed') || s.includes('live')) return 'bg-green-50 text-green-600';
+  if (s.includes('failed'))           return 'bg-red-50 text-red-500';
   return 'bg-amber-50 text-amber-600';
 }
 
-// ── Main Dashboard ────────────────────────────────────────────────────────────
+// ── Dashboard ──────────────────────────────────────────────────────────────────
 const Dashboard = () => {
-  const { toast } = useToast();
-  const navigate = useNavigate();
+  const { toast }   = useToast();
+  const navigate    = useNavigate();
   const { isAdmin, isSupport, isRisk, isDiscordManager, isContentCreator, hasPermission } = useAuth();
 
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading]         = useState(true);
 
   useEffect(() => {
     dashboardService.getDashboardData()
@@ -93,322 +115,293 @@ const Dashboard = () => {
       .finally(() => setIsLoading(false));
   }, [toast]);
 
-  const overview = dashboardData?.overview;
-  const totalUsers = overview?.total_users ?? 0;
+  const overview          = dashboardData?.overview;
+  const totalUsers        = overview?.total_users ?? 0;
   const totalPayoutAmount = overview?.total_payouts?.amount ?? 0;
-  const liveAccounts = overview?.live_accounts ?? 0;
-  const pendingPayouts = overview?.pending_payouts ?? 0;
+  const recentChallenges  = dashboardData?.recent_challenges ?? [];
+  const recentPayouts     = dashboardData?.recent_payouts ?? [];
 
-  const usersChartData = useMemo(() => buildUsersChartData(totalUsers), [totalUsers]);
-  const revenueChartData = useMemo(() => buildRevenueChartData(totalPayoutAmount), [totalPayoutAmount]);
+  const usersChartData   = useMemo(() => buildUsersChartData(totalUsers),        [totalUsers]);
+  const revenueChartData = useMemo(() => buildRevenueChartData(totalPayoutAmount),[totalPayoutAmount]);
 
-  // ── Limited view (non-stats users) ─────────────────────────────────────────
+  // ── Limited view ────────────────────────────────────────────────────────────
   if (!hasPermission('dashboard.view_stats')) {
     const navCards = [
-      { to: '/traders', label: 'Traders', icon: Users, description: 'Manage all trader profiles', roles: ['admin','support','risk'] },
-      { to: '/challenges', label: 'Challenges', icon: Activity, description: 'Monitor trading challenges', roles: ['admin','support','risk'] },
-      { to: '/trade-management', label: 'Trades', icon: TrendingUp, description: 'View trading activity', roles: ['admin','support','risk'] },
-      { to: '/payout-request', label: 'Payouts', icon: DollarSign, description: 'Process payout requests', roles: ['admin','support','risk','discord_manager'] },
-      { to: '/order-history', label: 'Orders', icon: ShoppingBag, description: 'Review order history', roles: ['admin','support','risk'] },
-      { to: '/offers', label: 'Offers', icon: Tag, description: 'Manage promotional offers', roles: ['admin','support','risk'] },
-      { to: '/certificates', label: 'Certificates', icon: Award, description: 'Generate certificates', roles: ['admin','support','risk','discord_manager','content_creator'] },
-      { to: '/kyc', label: 'KYC', icon: FileSearch, description: 'Review KYC requests', roles: ['admin','support','risk'] },
-      { to: '/affiliates', label: 'Affiliates', icon: BadgePercent, description: 'Manage affiliates', roles: ['admin','support','risk','discord_manager'] },
-      { to: '/support-dashboard', label: 'Live Chat', icon: MessageCircle, description: 'Handle customer chats', roles: ['admin','support','risk'] },
-      { to: '/tickets', label: 'Support Tickets', icon: Ticket, description: 'Manage support tickets', roles: ['admin','support','risk'] },
-      { to: '/notifications', label: 'Notifications', icon: Bell, description: 'View notifications', roles: ['admin','support','risk'] },
-      { to: '/risk-management', label: 'Risk', icon: Shield, description: 'Monitor trading risks', roles: ['admin','support','risk'] },
-      { to: '/ip-analysis', label: 'IP Analysis', icon: Network, description: 'Analyze IP patterns', roles: ['admin','support','risk'] },
-      { to: '/wecoins/tasks', label: 'WeCoins', icon: Cog, description: 'Manage WeCoins system', roles: ['admin','support','risk','discord_manager'] },
-      { to: '/settings', label: 'Settings', icon: Settings, description: 'System settings', roles: ['admin','support','risk','discord_manager','content_creator'] },
+      { to: '/traders',          label: 'Traders',         icon: Users,         roles: ['admin','support','risk'] },
+      { to: '/challenges',       label: 'Challenges',      icon: Activity,      roles: ['admin','support','risk'] },
+      { to: '/trade-management', label: 'Trades',          icon: TrendingUp,    roles: ['admin','support','risk'] },
+      { to: '/payout-request',   label: 'Payouts',         icon: DollarSign,    roles: ['admin','support','risk','discord_manager'] },
+      { to: '/order-history',    label: 'Orders',          icon: ShoppingBag,   roles: ['admin','support','risk'] },
+      { to: '/offers',           label: 'Offers',          icon: Tag,           roles: ['admin','support','risk'] },
+      { to: '/certificates',     label: 'Certificates',    icon: Award,         roles: ['admin','support','risk','discord_manager','content_creator'] },
+      { to: '/kyc',              label: 'KYC',             icon: FileSearch,    roles: ['admin','support','risk'] },
+      { to: '/affiliates',       label: 'Affiliates',      icon: BadgePercent,  roles: ['admin','support','risk','discord_manager'] },
+      { to: '/support-dashboard',label: 'Live Chat',       icon: MessageCircle, roles: ['admin','support','risk'] },
+      { to: '/tickets',          label: 'Support Tickets', icon: Ticket,        roles: ['admin','support','risk'] },
+      { to: '/notifications',    label: 'Notifications',   icon: Bell,          roles: ['admin','support','risk'] },
+      { to: '/risk-management',  label: 'Risk',            icon: Shield,        roles: ['admin','support','risk'] },
+      { to: '/ip-analysis',      label: 'IP Analysis',     icon: Network,       roles: ['admin','support','risk'] },
+      { to: '/wecoins/tasks',    label: 'WeCoins',         icon: Cog,           roles: ['admin','support','risk','discord_manager'] },
+      { to: '/settings',         label: 'Settings',        icon: Settings,      roles: ['admin','support','risk','discord_manager','content_creator'] },
     ].filter(card => {
       const roleMap: Record<string, boolean> = { admin: isAdmin, support: isSupport, risk: isRisk, discord_manager: isDiscordManager, content_creator: isContentCreator };
       return card.roles.some(r => roleMap[r]);
     });
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
           <p className="text-sm text-muted-foreground mt-1">Quick access to all platform sections</p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {navCards.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.to}
-                onClick={() => navigate(item.to)}
-                className="bg-card border border-border rounded-2xl p-4 cursor-pointer hover:border-primary/40 hover:shadow-md transition-all duration-200 group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
-                  <Icon className="w-5 h-5 text-primary" />
-                </div>
-                <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{item.label}</p>
-                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{item.description}</p>
+          {navCards.map(({ to, label, icon: Icon }) => (
+            <div key={to} onClick={() => navigate(to)}
+              className="bg-card border border-border rounded-2xl p-4 cursor-pointer hover:border-primary/40 hover:shadow-md transition-all duration-200 group">
+              <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+                <Icon className="w-4.5 h-4.5 text-primary" size={18} />
               </div>
-            );
-          })}
+              <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{label}</p>
+            </div>
+          ))}
         </div>
       </div>
     );
   }
 
-  // ── Full admin dashboard ────────────────────────────────────────────────────
-  const recentChallenges = dashboardData?.recent_challenges ?? [];
-  const recentPayouts = dashboardData?.recent_payouts ?? [];
-
+  // ── Full admin dashboard ─────────────────────────────────────────────────────
   return (
-    <div className="space-y-5">
+    <div className="space-y-8">
 
-      {/* ── Row 1: Users + Revenue charts ─────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      {/* 1 · OVERVIEW                                                        */}
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      <section>
+        <Divider label="Overview" icon={LayoutGrid} sublabel="Platform snapshot" />
 
-        {/* Users card */}
-        <div className="lg:col-span-2 bg-card rounded-2xl border border-border p-5 shadow-sm">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <Users className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              {isLoading ? (
-                <div className="h-6 w-28 bg-muted rounded animate-pulse" />
-              ) : (
-                <p className="text-xl font-bold text-foreground">
-                  {totalUsers.toLocaleString()} <span className="font-normal text-base text-muted-foreground">Users</span>
-                </p>
-              )}
-              <div className="flex items-center gap-2 mt-0.5">
-                <StatBadge value={12} />
-                <span className="text-xs text-muted-foreground">vs last week</span>
-              </div>
-            </div>
-          </div>
-          <div className="h-36">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={usersChartData} barSize={20} margin={{ top: 4, right: 4, left: -28, bottom: 0 }}>
-                <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} />
-                <Tooltip content={<ChartTooltip />} cursor={{ fill: 'hsl(var(--muted))', radius: 6 }} />
-                <Bar dataKey="value" radius={[6, 6, 0, 0]} fill={COLOR_BAR_USER} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+        <div className="mt-4 grid grid-cols-1 lg:grid-cols-5 gap-5">
 
-        {/* Revenue card */}
-        <div className="lg:col-span-3 bg-card rounded-2xl border border-border p-5 shadow-sm">
-          <div className="flex items-start gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <TrendingUp className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold text-foreground">Revenue</p>
-              <p className="text-xs text-muted-foreground mt-0.5">This represents the revenue generated for each month</p>
-              {!isLoading && (
-                <p className="text-lg font-bold text-foreground mt-1">
-                  {formatRevenue(totalPayoutAmount)} <span className="text-sm font-normal text-muted-foreground">total payouts</span>
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="h-36">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={revenueChartData} barSize={24} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
-                <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} />
-                <YAxis
-                  tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-                  axisLine={false} tickLine={false}
-                  tickFormatter={(v) => formatRevenue(v)}
-                />
-                <Tooltip
-                  content={<ChartTooltip prefix="$" />}
-                  cursor={{ fill: 'hsl(var(--muted))', radius: 6 }}
-                />
-                <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                  {revenueChartData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={entry.highlight ? COLOR_BAR_HIGHLIGHT : COLOR_BAR_DEFAULT}
-                    />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Row 2: Quick stats ─────────────────────────────────────────────── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {[
-          { label: 'Live Accounts', value: liveAccounts, icon: Activity, color: 'text-green-500', bg: 'bg-green-50' },
-          { label: 'Total Challenges', value: overview?.total_challenges ?? 0, icon: Award, color: 'text-blue-500', bg: 'bg-blue-50' },
-          { label: 'Pending Payouts', value: pendingPayouts, icon: DollarSign, color: 'text-amber-500', bg: 'bg-amber-50' },
-          { label: 'Pending KYC', value: overview?.pending_kyc ?? 0, icon: FileSearch, color: 'text-purple-500', bg: 'bg-purple-50' },
-        ].map(({ label, value, icon: Icon, color, bg }) => (
-          <div key={label} className="bg-card border border-border rounded-2xl p-4 shadow-sm">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-xs text-muted-foreground font-medium">{label}</p>
-              <div className={`w-8 h-8 rounded-xl ${bg} flex items-center justify-center`}>
-                <Icon className={`w-4 h-4 ${color}`} />
-              </div>
-            </div>
-            {isLoading ? (
-              <div className="h-7 w-16 bg-muted rounded animate-pulse" />
-            ) : (
-              <p className="text-2xl font-bold text-foreground">{value.toLocaleString()}</p>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* ── Row 3: Analytics tabs ─────────────────────────────────────────── */}
-      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
-        <Tabs defaultValue="challenges">
-          <div className="px-5 pt-4 border-b border-border">
-            <TabsList className="h-9 bg-muted/60 p-0.5 rounded-xl">
-              <TabsTrigger value="challenges" className="rounded-lg px-4 h-8 text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary">
-                Challenges
-              </TabsTrigger>
-              <TabsTrigger value="payouts" className="rounded-lg px-4 h-8 text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary">
-                Payouts
-              </TabsTrigger>
-              {hasPermission('orders.view') && (
-                <TabsTrigger value="orders" className="rounded-lg px-4 h-8 text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary">
-                  Orders
-                </TabsTrigger>
-              )}
-              <TabsTrigger value="trades" className="rounded-lg px-4 h-8 text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary">
-                Trades
-              </TabsTrigger>
-            </TabsList>
-          </div>
-          <div className="p-5">
-            <TabsContent value="challenges" className="mt-0"><ChallengesTab /></TabsContent>
-            <TabsContent value="payouts" className="mt-0"><PayoutsTab /></TabsContent>
-            {hasPermission('orders.view') && (
-              <TabsContent value="orders" className="mt-0"><OrdersTab /></TabsContent>
-            )}
-            <TabsContent value="trades" className="mt-0"><TradesTab /></TabsContent>
-          </div>
-        </Tabs>
-      </div>
-
-      {/* ── Row 4: Accounts Overview ───────────────────────────────────────── */}
-      <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
-        <div className="flex items-center gap-3 mb-5">
-          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-            <LayoutGrid className="w-5 h-5 text-primary" />
-          </div>
-          <div>
-            <p className="font-semibold text-foreground">Accounts Overview</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Recent challenge activity on the platform</p>
-          </div>
-        </div>
-
-        {isLoading ? (
-          <div className="space-y-3">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="flex items-center gap-4 p-3 rounded-xl bg-muted/40 animate-pulse">
-                <div className="w-8 h-8 rounded-full bg-muted" />
-                <div className="flex-1 space-y-1.5">
-                  <div className="h-3 w-32 bg-muted rounded" />
-                  <div className="h-2.5 w-24 bg-muted rounded" />
-                </div>
-                <div className="h-5 w-20 bg-muted rounded-full" />
-                <div className="h-3 w-16 bg-muted rounded" />
-              </div>
-            ))}
-          </div>
-        ) : recentChallenges.length === 0 ? (
-          <div className="text-center py-10 text-muted-foreground">
-            <Activity className="w-10 h-10 mx-auto mb-3 opacity-30" />
-            <p className="text-sm">No recent challenge activity</p>
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {/* Header row */}
-            <div className="grid grid-cols-12 px-3 pb-1 text-xs font-medium text-muted-foreground uppercase tracking-wide">
-              <span className="col-span-4">Trader</span>
-              <span className="col-span-3">Challenge</span>
-              <span className="col-span-3">Status</span>
-              <span className="col-span-2 text-right">Started</span>
-            </div>
-            {/* Data rows */}
-            {recentChallenges.map((challenge, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-12 items-center px-3 py-3 rounded-xl hover:bg-muted/40 transition-colors cursor-pointer group"
-                onClick={() => navigate('/challenges')}
-              >
-                {/* Avatar + name */}
-                <div className="col-span-4 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center text-primary text-xs font-bold flex-shrink-0">
-                    {challenge.trader_name?.[0]?.toUpperCase() ?? '?'}
-                  </div>
-                  <span className="text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">
-                    {challenge.trader_name}
-                  </span>
-                </div>
-
-                {/* Challenge name */}
-                <div className="col-span-3">
-                  <span className="text-sm text-muted-foreground truncate">{challenge.challenge_name}</span>
-                </div>
-
-                {/* Status */}
-                <div className="col-span-3">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor(challenge.phase_status)}`}>
-                    {challenge.phase_status}
-                  </span>
-                </div>
-
-                {/* Date */}
-                <div className="col-span-2 text-right">
-                  <span className="text-xs text-muted-foreground">
-                    {challenge.days_left !== null
-                      ? `${challenge.days_left}d left`
-                      : new Date(challenge.start_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Recent payouts section */}
-        {recentPayouts.length > 0 && (
-          <>
-            <div className="my-5 border-t border-border" />
+          {/* Users trend */}
+          <div className="lg:col-span-2 bg-card rounded-2xl border border-border p-5 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0">
-                <DollarSign className="w-5 h-5 text-green-500" />
+              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Users className="text-primary" size={17} />
               </div>
               <div>
-                <p className="font-semibold text-foreground">Recent Payouts</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Latest payout requests</p>
+                {isLoading
+                  ? <div className="h-6 w-28 bg-muted rounded animate-pulse" />
+                  : <p className="text-xl font-bold text-foreground">{totalUsers.toLocaleString()} <span className="font-normal text-base text-muted-foreground">Users</span></p>}
+                <div className="flex items-center gap-2 mt-0.5">
+                  <StatBadge value={12} />
+                  <span className="text-xs text-muted-foreground">vs last week</span>
+                </div>
               </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {recentPayouts.slice(0, 6).map((payout, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-muted/30 border border-border/60">
-                  <div>
-                    <p className="text-sm font-medium text-foreground">{payout.trader_name}</p>
-                    <p className="text-xs text-muted-foreground">{payout.time_ago}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-semibold text-foreground">${payout.amount.toLocaleString()}</p>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor(payout.status)}`}>
-                      {payout.status}
-                    </span>
-                  </div>
-                </div>
-              ))}
+            <div className="h-32">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={usersChartData} barSize={18} margin={{ top: 4, right: 4, left: -28, bottom: 0 }}>
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'hsl(240 10% 55%)' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: 'hsl(240 10% 55%)' }} axisLine={false} tickLine={false} />
+                  <Tooltip content={<ChartTooltip />} cursor={{ fill: 'hsl(250 30% 93%)', radius: 6 }} />
+                  <Bar dataKey="value" radius={[6, 6, 0, 0]} fill={COLOR_BAR_USER} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+
+          {/* Revenue trend */}
+          <div className="lg:col-span-3 bg-card rounded-2xl border border-border p-5 shadow-sm">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <TrendingUp className="text-primary" size={17} />
+              </div>
+              <div>
+                <p className="font-semibold text-foreground">Revenue</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Monthly payout volume</p>
+                {!isLoading && (
+                  <p className="text-lg font-bold text-foreground mt-0.5">
+                    {formatRevenue(totalPayoutAmount)} <span className="text-sm font-normal text-muted-foreground">total</span>
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="h-32">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={revenueChartData} barSize={22} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'hsl(240 10% 55%)' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: 'hsl(240 10% 55%)' }} axisLine={false} tickLine={false} tickFormatter={formatRevenue} />
+                  <Tooltip content={<ChartTooltip prefix="$" />} cursor={{ fill: 'hsl(250 30% 93%)', radius: 6 }} />
+                  <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                    {revenueChartData.map((entry, i) => (
+                      <Cell key={i} fill={entry.highlight ? COLOR_BAR_HIGHLIGHT : COLOR_BAR_DEFAULT} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick KPI strip */}
+        <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { label: 'Live Accounts',     value: overview?.live_accounts ?? 0,     icon: Activity,   color: 'text-green-600',  bg: 'bg-green-50' },
+            { label: 'Total Challenges',  value: overview?.total_challenges ?? 0,  icon: Award,      color: 'text-blue-600',   bg: 'bg-blue-50' },
+            { label: 'Pending Payouts',   value: overview?.pending_payouts ?? 0,   icon: DollarSign, color: 'text-amber-600',  bg: 'bg-amber-50' },
+            { label: 'Pending KYC',       value: overview?.pending_kyc ?? 0,       icon: FileSearch, color: 'text-primary',    bg: 'bg-primary/10' },
+          ].map(({ label, value, icon: Icon, color, bg }) => (
+            <div key={label} className="bg-card border border-border rounded-2xl p-4 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-xs font-medium text-muted-foreground">{label}</p>
+                <div className={`w-7 h-7 rounded-lg ${bg} flex items-center justify-center`}>
+                  <Icon className={`${color}`} size={14} />
+                </div>
+              </div>
+              {isLoading
+                ? <div className="h-7 w-12 bg-muted rounded animate-pulse" />
+                : <p className="text-2xl font-bold text-foreground">{value.toLocaleString()}</p>}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      {/* 2 · CHALLENGES                                                      */}
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      <section>
+        <Divider label="Challenges" icon={Activity} sublabel="Phase & pass-rate analytics" />
+        <div className="mt-4">
+          <ChallengesTab />
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      {/* 3 · PAYOUTS                                                         */}
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      <section>
+        <Divider label="Payouts" icon={DollarSign} sublabel="Withdrawal & payout analytics" />
+        <div className="mt-4">
+          <PayoutsTab />
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      {/* 4 · ORDERS (admin only)                                             */}
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      {hasPermission('orders.view') && (
+        <section>
+          <Divider label="Orders" icon={ShoppingBag} sublabel="Revenue & order analytics" />
+          <div className="mt-4">
+            <OrdersTab />
+          </div>
+        </section>
+      )}
+
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      {/* 5 · TRADES                                                          */}
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      <section>
+        <Divider label="Trades" icon={TrendingUp} sublabel="Live trading activity" />
+        <div className="mt-4">
+          <TradesTab />
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      {/* 6 · RECENT ACTIVITY                                                 */}
+      {/* ════════════════════════════════════════════════════════════════════ */}
+      <section>
+        <Divider label="Recent Activity" icon={LayoutGrid} sublabel="Latest challenges & payouts" />
+
+        <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+          {/* Recent challenges */}
+          <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-border">
+              <SectionHeader icon={Activity} title="Recent Challenges" subtitle="Latest challenge enrollments" />
+            </div>
+            <div className="p-5">
+              {isLoading ? (
+                <div className="space-y-3">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="flex items-center gap-3 animate-pulse">
+                      <div className="w-8 h-8 rounded-full bg-muted" />
+                      <div className="flex-1 space-y-1.5">
+                        <div className="h-3 w-32 bg-muted rounded" />
+                        <div className="h-2.5 w-20 bg-muted rounded" />
+                      </div>
+                      <div className="h-5 w-16 bg-muted rounded-full" />
+                    </div>
+                  ))}
+                </div>
+              ) : recentChallenges.length === 0 ? (
+                <p className="text-sm text-center text-muted-foreground py-6">No recent challenges</p>
+              ) : (
+                <div className="space-y-2">
+                  {recentChallenges.map((c, i) => (
+                    <div key={i} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-muted/40 transition-colors cursor-pointer group" onClick={() => navigate('/challenges')}>
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold flex-shrink-0">
+                        {c.trader_name?.[0]?.toUpperCase() ?? '?'}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">{c.trader_name}</p>
+                        <p className="text-xs text-muted-foreground truncate">{c.challenge_name}</p>
+                      </div>
+                      <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium flex-shrink-0 ${statusColor(c.phase_status)}`}>
+                        {c.phase_status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Recent payouts */}
+          <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-border">
+              <SectionHeader icon={DollarSign} title="Recent Payouts" subtitle="Latest payout requests" iconBg="bg-green-50" iconColor="text-green-600" />
+            </div>
+            <div className="p-5">
+              {isLoading ? (
+                <div className="space-y-3">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="flex items-center gap-3 animate-pulse">
+                      <div className="w-8 h-8 rounded-full bg-muted" />
+                      <div className="flex-1 space-y-1.5">
+                        <div className="h-3 w-28 bg-muted rounded" />
+                        <div className="h-2.5 w-16 bg-muted rounded" />
+                      </div>
+                      <div className="h-5 w-16 bg-muted rounded-full" />
+                    </div>
+                  ))}
+                </div>
+              ) : recentPayouts.length === 0 ? (
+                <p className="text-sm text-center text-muted-foreground py-6">No recent payouts</p>
+              ) : (
+                <div className="space-y-2">
+                  {recentPayouts.map((p, i) => (
+                    <div key={i} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-muted/40 transition-colors cursor-pointer group" onClick={() => navigate('/payout-request')}>
+                      <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-600 text-xs font-bold flex-shrink-0">
+                        {p.trader_name?.[0]?.toUpperCase() ?? '?'}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">{p.trader_name}</p>
+                        <p className="text-xs text-muted-foreground">{p.time_ago}</p>
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <p className="text-sm font-semibold text-foreground">${p.amount.toLocaleString()}</p>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor(p.status)}`}>{p.status}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 };
