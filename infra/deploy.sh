@@ -139,11 +139,19 @@ cd /home/wl-crm/app/src && sudo -u wl-crm npm install --silent && sudo -u wl-crm
 mkdir -p /home/wl-crm/htdocs/$CRM_DOMAIN
 cp -r dist/* /home/wl-crm/htdocs/$CRM_DOMAIN/
 chown -R wl-crm:wl-crm /home/wl-crm/htdocs/
+# Allow nginx (www-data) to read htdocs
+chmod o+rx /home/wl-crm /home/wl-crm/htdocs
+find /home/wl-crm/htdocs -type d -exec chmod o+rx {} \;
+find /home/wl-crm/htdocs -type f -exec chmod o+r {} \;
 
 cd /home/wl-app/app/src && sudo -u wl-app npm install --silent && sudo -u wl-app npm run build
 mkdir -p /home/wl-app/htdocs/$APP_DOMAIN
 cp -r dist/* /home/wl-app/htdocs/$APP_DOMAIN/
 chown -R wl-app:wl-app /home/wl-app/htdocs/
+# Allow nginx (www-data) to read htdocs
+chmod o+rx /home/wl-app /home/wl-app/htdocs
+find /home/wl-app/htdocs -type d -exec chmod o+rx {} \;
+find /home/wl-app/htdocs -type f -exec chmod o+r {} \;
 
 ENDSSH
 
